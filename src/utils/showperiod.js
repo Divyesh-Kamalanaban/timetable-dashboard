@@ -1,10 +1,11 @@
+/* eslint-disable no-unused-vars */
 
 /*Preface: This util uses Higher Order function concept. Basically higher order function either accepts a function as a param or returns a function or does both. in this case we create a higher order func that returns showperiod. This is done to provide showperiod with required variables from the main file.*/
 
 export function higherOrderShowPeriod(dayindex, now, timeslots){
     return function showperiod(cls) {
         let timetablearray = cls.timetable[dayindex];
-        let staffarr = cls.staffarr;
+        let staffarr = cls.staffs;
         let currentperiod;
         let staffname;
         let nextperiod;
