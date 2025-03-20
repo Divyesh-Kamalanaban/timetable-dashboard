@@ -113,7 +113,7 @@ function ClassLayout() {
             year1.map((cls, index) => (
               <div
                 key={index}
-                className="relative bg-[#3d3d3d] p-8 py-14 rounded-xl shadow-lg flex flex-col justify-between h-max w-max m-2"
+                className="h-[14rem] w-[16.6vw] card"
               >
                 <div>
                   <h2 className="bg-gradient-to-r from-[#FFDE59] to-[#FF914D] bg-clip-text text-transparent text-[1.23em] font-semibold mb-[0.2em]">
@@ -123,8 +123,8 @@ function ClassLayout() {
                     {showperiod(cls)[1]}
                   </p>
                 </div>
-                <p className="text-md text-white font-medium">Next: {showperiod(cls)[2]}</p>
-                <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-3xl font-bold">{`1${cls.class}`}</div>
+                <p className="text-[0.9em] text-white font-normal"><b>Next:</b> {showperiod(cls)[2]}</p>
+                <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`1${cls.class}`}</div>
               </div>
             ))
           )}
@@ -137,7 +137,7 @@ function ClassLayout() {
             year2.map((cls, index) => (
               <div
                 key={index}
-                className="relative bg-[#3d3d3d] p-8 py-14 rounded-xl shadow-lg flex flex-col justify-between h-max w-max m-2"
+                className="h-[14rem] w-[33vw] m-2 card"
               >
                  <div>
                   <h2 className="bg-gradient-to-r from-[#FFDE59] to-[#FF914D] bg-clip-text text-transparent text-2xl font-semibold mb-1">
@@ -148,6 +148,7 @@ function ClassLayout() {
                   </p>
                 </div>
                 <p className="text-md text-white font-medium">{showperiod(cls)[2]}</p>
+                <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`2${cls.class}`}</div>
                 <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`2${cls.class}`}</div>
               </div>
             ))
@@ -162,7 +163,7 @@ function ClassLayout() {
             year3.map((cls, index) => (
               <div
                 key={index}
-                className="relative bg-[#3d3d3d] p-8 py-14 rounded-xl shadow-lg flex flex-col justify-between h-max w-max m-2"
+                className="h-[14rem] w-[33vw] m-2 card"
               >
                 <div>
                   <h2 className="bg-gradient-to-r from-[#FFDE59] to-[#FF914D] bg-clip-text text-transparent text-2xl font-semibold mb-1">
@@ -173,6 +174,7 @@ function ClassLayout() {
                   </p>
                 </div>
                 <p className="text-md text-white font-medium">{showperiod(cls)[2]}</p>
+                <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`3${cls.class}`}</div>
                 <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`3${cls.class}`}</div>
               </div>
             ))
