@@ -56,7 +56,7 @@ function ClassLayout() {
   // State for time.
   const [now, setNow] = useState(new Date());
 
-
+  const dialogref = useRef(null);
   useEffect(() => {
     const fetchData = async () => {
       //async func has 2 parts: try and catch; try for fetching data and catch for error handling.
@@ -117,6 +117,9 @@ function ClassLayout() {
               >
                 <div>
                   <h2 className="bg-gradient-to-r from-[#FFDE59] to-[#FF914D] bg-clip-text text-transparent text-[1.23em] font-semibold mb-[0.2em]">
+                    <dialog ref={dialogref}>
+
+                    </dialog>
                     {showperiod(cls)[0]}
                   </h2>
                   <p className="text-[1em] text-white ">
@@ -147,7 +150,7 @@ function ClassLayout() {
                     {showperiod(cls)[1]}
                   </p>
                 </div>
-                <p className="text-md text-white font-medium">{showperiod(cls)[2]}</p>
+                <p className="text-[0.9em] text-white font-normal"><b>Next:</b> {showperiod(cls)[2]}</p>
                 <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`2${cls.class}`}</div>
                 <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`2${cls.class}`}</div>
               </div>
@@ -173,7 +176,7 @@ function ClassLayout() {
                     {showperiod(cls)[1]}
                   </p>
                 </div>
-                <p className="text-md text-white font-medium">{showperiod(cls)[2]}</p>
+                <p className="text-[0.9em] text-white font-normal"><b>Next:</b> {showperiod(cls)[2]}</p>
                 <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`3${cls.class}`}</div>
                 <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`3${cls.class}`}</div>
               </div>
