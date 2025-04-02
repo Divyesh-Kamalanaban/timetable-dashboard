@@ -6,8 +6,9 @@ require('dotenv').config();
 
 //Importing year1, year2, year3 models (contains schema structure)
 const year1 = require('./models/year1.model'); // lowercase 'year1'
-const year2 = require('./models/year2.model'); // lowercase 'year1'
-const year3 = require('./models/year3.model'); // lowercase 'year1'
+const year2 = require('./models/year2.model'); // lowercase 'year2'
+const year3 = require('./models/year3.model'); // lowercase 'year3'
+const timeslots = require('./models/timeslots.model'); 
 
 
 const app = express();
@@ -50,6 +51,17 @@ app.get('/api/year3', async (req, res) => {
     const year3Data = await year3.find(); 
     res.json(year3Data);
   } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+//timeslots
+app.get('/api/timeslots', async (req, res)=>{
+  try{
+    const timeslotsData =  await timeslots.find();
+    res.json(timeslotsData);
+  }
+  catch (err) {
     res.status(500).json({ message: err.message });
   }
 });

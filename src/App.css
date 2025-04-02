@@ -35,7 +35,7 @@ html {
   background: #1f1f1f;
   -webkit-box-shadow: 5px 5px 10px #1a1a1a, -5px -5px 10px #242424;
   box-shadow: 5px 5px 10px #1a1a1a, -5px -5px 10px #242424;
-  border-radius: 5px;
+  border-radius: 20px;
   color: white;
   position: relative;
   padding: 2rem;
