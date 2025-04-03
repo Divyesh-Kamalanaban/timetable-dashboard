@@ -5,8 +5,9 @@
 import axios from "axios";
 import { useRef, useState, useEffect } from "react";
 import "./App.css";
-import {higherOrderShowPeriod} from "./utils/showperiod";
-import { fetchData } from "./utils/fetchdata";
+import {higherOrderShowPeriod} from "./utils/modules/showperiod";
+import { fetchData } from "./utils/modules/fetchdata";
+import { useContextData } from "./utils/modules/context";
 
 // const timeslots = [
 //   { period: 1, starthour: 8, startminute: 0, endhour: 8, endminute: 50 },
@@ -47,16 +48,8 @@ function NavBar() {
 }
 
 function ClassLayout() {
-  //To ensure UI doesnt call the values before its initialised
-  const [loading, isLoading] = useState(true);
-  //Year1, year2, year3 api response init
-  const [year1, setYear1] = useState();
-  const [year2, setYear2] = useState();
-  const [year3, setYear3] = useState();
-  const [timeslots, settimeslots] = useState();
 
-  // State for time.
-  const [now, setNow] = useState(new Date());
+  const {year1, year2, year3, setYear1, setYear2, setYear3, timeslots, settimeslots, loading, isLoading, now, setNow} = useContextData();
 
   const dialogref = useRef(null);
   useEffect(() => {
@@ -80,7 +73,6 @@ function ClassLayout() {
   const showperiod = higherOrderShowPeriod(dayindex, now, timeslots);
   return (
     <>
-    
       <div className="flex flex-col items-center justify-center">
         <h1>1st Year</h1>
         <Year1TimeTable loading={loading} year1={year1} showperiod={showperiod}/>
