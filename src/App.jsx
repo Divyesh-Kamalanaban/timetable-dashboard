@@ -2,12 +2,22 @@
 /* eslint-disable no-unused-vars */
 
 //importing axios for promises, hooks from react and css for styling.
-import axios from "axios";
 import { useRef, useState, useEffect } from "react";
 import "./App.css";
-import {higherOrderShowPeriod} from "./utils/modules/showperiod";
+import { higherOrderShowPeriod } from "./utils/modules/showperiod";
 import { fetchData } from "./utils/modules/fetchdata";
 import { useContextData } from "./utils/modules/context";
+import { Skeleton } from "@/components/ui/skeleton";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import { Car } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
 
 // const timeslots = [
 //   { period: 1, starthour: 8, startminute: 0, endhour: 8, endminute: 50 },
@@ -23,7 +33,7 @@ import { useContextData } from "./utils/modules/context";
 function NavBar() {
   return (
     <>
-      <div className="w-screen flex items-center h-max justify-around p-2 bg-[#1E1E1E]">
+      <div className="w-screen flex items-center h-max justify-around p-2 bg-slate-950">
         <div className="flex flex-row items-center justify-center">
           <ul className="flex flex-row items-center justify-center text-[1.5em] tracking-tight">
             <li className="flex bg-gradient-to-r from-[#FFDE59] to-[#FF914D] bg-clip-text text-transparent font-semibold m-2">
@@ -37,23 +47,35 @@ function NavBar() {
             </li>
           </ul>
         </div>
-        <input
-          type="text"
-          className="p-2 text-center rounded-full bg-[#D9D9D9]"
+        <Input
+        type="text"
+          className="w-fit"
           placeholder="Search for Classes"
-        ></input>
+        />
       </div>
     </>
   );
 }
 
 function ClassLayout() {
-
-  const {year1, year2, year3, setYear1, setYear2, setYear3, timeslots, settimeslots, loading, isLoading, now, setNow} = useContextData();
+  const {
+    year1,
+    year2,
+    year3,
+    setYear1,
+    setYear2,
+    setYear3,
+    timeslots,
+    settimeslots,
+    loading,
+    isLoading,
+    now,
+    setNow,
+  } = useContextData();
 
   const dialogref = useRef(null);
   useEffect(() => {
-    fetchData(setYear1, setYear2, setYear3, settimeslots, isLoading)
+    fetchData(setYear1, setYear2, setYear3, settimeslots, isLoading);
 
     // Update time every second.
     const interval = setInterval(() => {
@@ -61,7 +83,7 @@ function ClassLayout() {
     }, 1000);
 
     return () => clearInterval(interval); // Cleanup on unmount.
-  }, []);
+  }, [setYear1, setYear2, setYear3, settimeslots, isLoading, setNow]);
 
   //getting current time with formatting.
   const formattedTime = now.toLocaleTimeString("en-GB");
@@ -74,28 +96,83 @@ function ClassLayout() {
   return (
     <>
       <div className="flex flex-col items-center justify-center">
-        <h1>1st Year</h1>
-        <Year1TimeTable loading={loading} year1={year1} showperiod={showperiod}/>
-        <h1>2nd Year</h1>
-        <Year2TimeTable loading={loading} year2={year2} showperiod={showperiod}/>
-        <h1>3rd Year</h1>
-        <Year3TimeTable loading={loading} year3={year3} showperiod={showperiod}/>
+        <br />
+        <br />
+        <h1>
+          1<sup>st</sup> year
+        </h1>
+        <Year1TimeTable
+          loading={loading}
+          year1={year1}
+          showperiod={showperiod}
+        />
+        <h1>
+          2<sup>nd</sup> year
+        </h1>
+        <Year2TimeTable
+          loading={loading}
+          year2={year2}
+          showperiod={showperiod}
+        />
+        <h1>
+          3<sup>rd</sup> year
+        </h1>
+        <Year3TimeTable
+          loading={loading}
+          year3={year3}
+          showperiod={showperiod}
+        />
       </div>
     </>
   );
 }
 
-function Year1TimeTable({loading, year1, showperiod}){
+function Year1TimeTable({ loading, year1, showperiod }) {
   return (
     <>
-        <div className="flex flex-row items-center justify-center w-screen h-[33vh] px-1 overflow-y-hidden">
+      {/*Added carousel with basis-1/3 to view 3 classes at once. Carousel will be used for other years if classes count > 3*/}
+      <div className="flex flex-row items-center justify-center w-screen p-4">
+        <Carousel
+          opts={{
+            align: "start",
+            loop: true,
+          }}
+          className="w-full max-w-[93vw] mx-auto"
+        >
+          <CarouselContent className="">
+            {loading ? (
+              <SkeletonLoader />
+            ) : (
+              year1.map((cls, index) => (
+                <CarouselItem key={index} className="card basis-1/3">
+                  <div>
+                    <h2 className="text-[1.5em] font-bold mb-[0.2em]">
+                      {showperiod(cls)[0]}
+                    </h2>
+                    <p className="text-[1em] text-white">
+                      {showperiod(cls)[1]}
+                    </p>
+                  </div>
+                    <p className="text-[1.1em] font-normal">
+                      <b>Next:</b> {showperiod(cls)[2]}
+                    </p>
+                  <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] p-1 bg-clip-text text-transparent text-3xl font-bold rounded-[20px]">{`${cls.class}`}</div>
+                </CarouselItem>
+              ))
+            )}
+          </CarouselContent>
+          <CarouselPrevious className="" />
+          <CarouselNext />
+        </Carousel>
+      </div>
+      {/* <div className="flex flex-row items-center justify-center w-screen h-[33vh] px-1">
           {loading ? (
-            <p>Loading</p>
+            <SkeletonLoader />
           ) : (
             year1.map((cls, index) => (
               <div
                 key={index}
-                className="h-[14rem] w-[16.6vw] card"
+                className="card"
               >
                 <div>
                   <h2 className="bg-gradient-to-r from-[#FFDE59] to-[#FF914D] bg-clip-text text-transparent text-[1.23em] font-semibold mb-[0.2em]">
@@ -110,75 +187,89 @@ function Year1TimeTable({loading, year1, showperiod}){
               </div>
             ))
           )}
-        </div>
+        </div> */}
     </>
-  )
+  );
 }
-function Year2TimeTable({loading, year2, showperiod}){
+
+function Year2TimeTable({ loading, year2, showperiod }) {
   return (
     <>
-    <div className="flex flex-row items-center justify-center w-screen h-[33vh] px-1 overflow-y-hidden">
-  {loading ? (
-    <p>Loading</p>
-  ) : (
-    year2.map((cls, index) => (
-      <div
-        key={index}
-        className="h-[14rem] w-[33vw] m-2 card"
-      >
-         <div>
-          <h2 className="bg-gradient-to-r from-[#FFDE59] to-[#FF914D] bg-clip-text text-transparent text-2xl font-semibold mb-1">
-            {showperiod(cls)[0]}
-          </h2>
-          <p className="text-md text-white ">
-            {showperiod(cls)[1]}
-          </p>
-        </div>
-        <p className="text-[0.9em] text-white font-normal"><b>Next:</b> {showperiod(cls)[2]}</p>
-        <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`2${cls.class}`}</div>
-        <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`2${cls.class}`}</div>
+      <div className="flex flex-row items-center justify-center w-screen h-[33vh] px-1 overflow-y-hidden">
+        {loading ? (
+          <SkeletonLoader />
+        ) : (
+          year2.map((cls, index) => (
+            <div key={index} className="h-[14rem] w-[33vw] m-2 card">
+              <div>
+                <h2 className="text-[1.5em] font-bold mb-[0.2em]">
+                  {showperiod(cls)[0]}
+                </h2>
+                <p className="text-[1em] text-white">{showperiod(cls)[1]}</p>
+              </div>
+                <p className="text-[1.1em] text-white font-normal">
+                  <b>Next:</b> {showperiod(cls)[2]}
+                </p>
+              <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text p-1 text-transparent text-3xl font-bold">{`${cls.class}`}</div>
+            </div>
+          ))
+        )}
       </div>
-    ))
-  )}
-</div>
     </>
-  )
+  );
 }
-function Year3TimeTable({loading, year3, showperiod}){
- return(
-  <>
-   <div className="flex flex-row items-center justify-center w-screen h-[33vh] px-1 overflow-y-hidden">
-  {loading ? (
-    <p>Loading</p>
-  ) : (
-    year3.map((cls, index) => (
-      <div
-        key={index}
-        className="h-[14rem] w-[33vw] m-2 card"
-      >
-        <div>
-          <h2 className="bg-gradient-to-r from-[#FFDE59] to-[#FF914D] bg-clip-text text-transparent text-2xl font-semibold mb-1">
-            {showperiod(cls)[0]}
-          </h2>
-          <p className="text-md text-white ">
-            {showperiod(cls)[1]}
-          </p>
-        </div>
-        <p className="text-[0.9em] text-white font-normal"><b>Next:</b> {showperiod(cls)[2]}</p>
-        <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`3${cls.class}`}</div>
-        <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`3${cls.class}`}</div>
+
+function Year3TimeTable({ loading, year3, showperiod }) {
+  return (
+    <>
+      <div className="flex flex-row items-center justify-center w-screen h-[33vh] px-1 overflow-y-hidden">
+        {loading ? (
+          <SkeletonLoader />
+        ) : (
+          year3.map((cls, index) => (
+            <div key={index} className="h-[14rem] w-[33vw] m-2 card">
+              <div>
+                <h2 className="text-[1.5em] font-bold mb-1">
+                  {showperiod(cls)[0]}
+                </h2>
+                <p className="text-md text-white ">{showperiod(cls)[1]}</p>
+              </div>
+              <p className="text-[1.1em] text-white font-normal">
+                <b>Next:</b> {showperiod(cls)[2]}
+              </p>
+              <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text p-1 text-transparent text-3xl font-bold">{`${cls.class}`}</div>
+            </div>
+          ))
+        )}
       </div>
-    ))
-  )}
-</div>
-  </>
- )
+    </>
+  );
+}
+
+function SkeletonLoader() {
+  return (
+    <div className="flex flex-row items-center justify-center w-screen h-[33vh] px-1 overflow-y-hidden">
+      <div className="space-y-2 m-2">
+        <Skeleton className="h-4 w-[250px] bg-muted/10" />
+        <Skeleton className="h-4 w-[200px] bg-muted/10" />
+      </div>
+      <div className="space-y-2 m-2">
+        <Skeleton className="h-4 w-[250px] bg-muted/10" />
+        <Skeleton className="h-4 w-[200px] bg-muted/10" />
+      </div>
+      <div className="space-y-2 m-2">
+        <Skeleton className="h-4 w-[250px] bg-muted/10" />
+        <Skeleton className="h-4 w-[200px] bg-muted/10" />
+      </div>
+    </div>
+  );
 }
 function App() {
   return (
     <>
-      <NavBar />  
-      <div className="bg-[#1E1E1E] h-max w-screen justify-center items-center flex">
+      <NavBar />
+
+      <div className="bg-slate-950 h-max w-screen justify-center items-center flex">
         <ClassLayout />
       </div>
     </>

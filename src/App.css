@@ -2,22 +2,30 @@
 @tailwind components;
 @tailwind utilities;
 
+
 *{
-  overflow-x: hidden;
+    /*overflow-x-hidden breaks carousel.*/
+  /* overflow-x: hidden; */
 }
 
-h1{
+h1 {
   display: inline-block;
   font-family: 'Inter';
   font-weight: 600;
   letter-spacing: -2px;
-  font-size: 2rem;
-  background-image: linear-gradient(90deg, #FF66C4, #FFDE59);
+  font-size: 3rem;
+  background-image: linear-gradient(0deg, #FF66C4, #FFDE59);
+  margin: 2rem;
   background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: transparent;
   width: 100%;
-  text-align: left;
+  text-align: center;
+}
+
+h1 > sup{
+  background-image: linear-gradient(0deg, #FF66C4, #FFDE59);
+  background-clip: text;
+  color: transparent;
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -27,14 +35,15 @@ html::-webkit-scrollbar {
 
 /* Hide scrollbar for IE, Edge and Firefox */
 html {
-  -ms-overflow-style: none;  /* IE and Edge */
+  /* -ms-overflow-style: none;  IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
 
 .card{
-  background: #1f1f1f;
-  -webkit-box-shadow: 5px 5px 10px #1a1a1a, -5px -5px 10px #242424;
-  box-shadow: 5px 5px 10px #1a1a1a, -5px -5px 10px #242424;
+  background-image: linear-gradient(90deg, #0f172a, #1e293b90);
+  width: 33vw;
+  height: 25vh;
+  border: 1px solid #1e293b;
   border-radius: 20px;
   color: white;
   position: relative;
@@ -44,4 +53,40 @@ html {
   justify-content: space-between;
   margin: 0.5rem;
   overflow-y: hidden;
+}
+
+/*---break---*/
+
+@layer base {
+  :root {
+        --sidebar-background: 0 0% 98%;
+        --sidebar-foreground: 240 5.3% 26.1%;
+        --sidebar-primary: 240 5.9% 10%;
+        --sidebar-primary-foreground: 0 0% 98%;
+        --sidebar-accent: 240 4.8% 95.9%;
+        --sidebar-accent-foreground: 240 5.9% 10%;
+        --sidebar-border: 220 13% 91%;
+        --sidebar-ring: 217.2 91.2% 59.8%;
+    }
+  .dark {
+        --sidebar-background: 240 5.9% 10%;
+        --sidebar-foreground: 240 4.8% 95.9%;
+        --sidebar-primary: 224.3 76.3% 48%;
+        --sidebar-primary-foreground: 0 0% 100%;
+        --sidebar-accent: 240 3.7% 15.9%;
+        --sidebar-accent-foreground: 240 4.8% 95.9%;
+        --sidebar-border: 240 3.7% 15.9%;
+        --sidebar-ring: 217.2 91.2% 59.8%;
+    }
+}
+
+/*---break---*/
+
+@layer base {
+  * {
+    @apply border-border;
+    }
+  body {
+    @apply bg-background text-foreground;
+    }
 }

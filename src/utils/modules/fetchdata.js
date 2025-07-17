@@ -1,4 +1,4 @@
-/* eslint-disable no-unused-vars */
+
  import axios from "axios";
  
  export const fetchData = async (setYear1, setYear2, setYear3, settimeslots, isLoading)=>{
