@@ -15,9 +15,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Car } from "lucide-react";
 import { Input } from "@/components/ui/input";
-import { Separator } from "@/components/ui/separator";
 
 // const timeslots = [
 //   { period: 1, starthour: 8, startminute: 0, endhour: 8, endminute: 50 },
@@ -75,9 +73,12 @@ function ClassLayout() {
   const formattedTime = now.toLocaleTimeString("en-GB");
   //index of day (since it starts from 0 so -1).
   let dayindex = now.getDay() - 1;
-  //handling day index: if its greater than or equal to 0 then it remains as it is. if not then 6 added to dayindex.
-  // dayindex = dayindex >= 0 ? dayindex : dayindex + 6;
 
+  //This logic is ditched as of now to include support for all days.
+  //handling day index: if its greater than or equal to 0 then it remains as it is. if not then 6 added to dayindex.
+  //dayindex = dayindex >= 0 ? dayindex : dayindex + 6;
+
+  // Creating a higher order function which accepts dayindex, now and timeslots as parameters and passes it to showperiod function.
   const showperiod = higherOrderShowPeriod(dayindex, now, timeslots);
   return (
     <>
@@ -113,10 +114,13 @@ function ClassLayout() {
   );
 }
 
+{/*
+  Added carousel with basis-1/3 to view 3 classes at once. Carousel will be used for other years if classes count > 3.
+  This is done for all three years.
+  */}
 function Year1TimeTable({ loading, year1, showperiod }) {
   return (
     <>
-      {/*Added carousel with basis-1/3 to view 3 classes at once. Carousel will be used for other years if classes count > 3*/}
       <div className="flex flex-row items-center justify-center w-screen p-4">
         <Carousel
           opts={{
@@ -152,29 +156,6 @@ function Year1TimeTable({ loading, year1, showperiod }) {
           <CarouselNext />
         </Carousel>
       </div>
-      {/* <div className="flex flex-row items-center justify-center w-screen h-[33vh] px-1">
-          {loading ? (
-            <SkeletonLoader />
-          ) : (
-            year1.map((cls, index) => (
-              <div
-                key={index}
-                className="card"
-              >
-                <div>
-                  <h2 className="bg-gradient-to-r from-[#FFDE59] to-[#FF914D] bg-clip-text text-transparent text-[1.23em] font-semibold mb-[0.2em]">
-                    {showperiod(cls)[0]}
-                  </h2>
-                  <p className="text-[1em] text-white ">
-                    {showperiod(cls)[1]}
-                  </p>
-                </div>
-                <p className="text-[0.9em] text-white font-normal"><b>Next:</b> {showperiod(cls)[2]}</p>
-                <div className="absolute bottom-2 right-2 bg-gradient-to-r from-[#7FF899] to-[#22AEF9] bg-clip-text text-transparent text-2xl font-bold">{`1${cls.class}`}</div>
-              </div>
-            ))
-          )}
-        </div> */}
     </>
   );
 }
@@ -232,7 +213,7 @@ function Year3TimeTable({ loading, year3, showperiod }) {
     </>
   );
 }
-
+{/*A simple skeleton loader component that makes use of shadCNs skeleton component. Used as a placeholder when content is loading from the server.*/}
 function SkeletonLoader() {
   return (
     <div className="flex flex-row items-center justify-center w-screen h-[33vh] px-1 overflow-y-hidden">
@@ -255,7 +236,6 @@ function App() {
   return (
     <>
       <NavBar />
-
       <div className="bg-slate-950 h-max w-screen justify-center items-center flex">
         <ClassLayout />
       </div>
