@@ -90,7 +90,7 @@ function ClassLayout() {
   //index of day (since it starts from 0 so -1).
   let dayindex = now.getDay() - 1;
   //handling day index: if its greater than or equal to 0 then it remains as it is. if not then 6 added to dayindex.
-  dayindex = dayindex >= 0 ? dayindex : dayindex + 6;
+  // dayindex = dayindex >= 0 ? dayindex : dayindex + 6;
 
   const showperiod = higherOrderShowPeriod(dayindex, now, timeslots);
   return (

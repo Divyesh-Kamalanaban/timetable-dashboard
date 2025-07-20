@@ -41,7 +41,7 @@ html {
 
 .card{
   background-image: linear-gradient(90deg, #0f172a, #1e293b90);
-  width: 33vw;
+  /* width: 33vw; */
   height: 25vh;
   border: 1px solid #1e293b;
   border-radius: 20px;

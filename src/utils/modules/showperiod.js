@@ -9,6 +9,8 @@ export function higherOrderShowPeriod(dayindex, now, timeslots){
         let currentperiod;
         let staffname;
         let nextperiod;
+
+        console.log(dayindex)
     
         //For Loop
         for (const slot of timeslots) {
@@ -16,8 +18,14 @@ export function higherOrderShowPeriod(dayindex, now, timeslots){
           const nowMinutes = now.getHours() * 60 + now.getMinutes();
           const startMinutes = slot.starthour * 60 + slot.startminute;
           const endMinutes = slot.endhour * 60 + slot.endminute;
-    
+          
           if (nowMinutes >= startMinutes && nowMinutes <= endMinutes) {
+            if(dayindex == -1 || dayindex == 6){
+              currentperiod = "No Period Found";
+              staffname = "No one found.";
+              nextperiod = "No Period Found";
+              break;
+            }
             currentperiod = timetablearray[`period${slot.period}`];
             nextperiod = timetablearray[`period${slot.period+1}`];
             staffname = staffarr[currentperiod];
