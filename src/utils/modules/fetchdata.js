@@ -1,15 +1,18 @@
+/* eslint-disable no-unused-vars */
 
  import axios from "axios";
+import { set } from "zod";
  
- export const fetchData = async (setYear1, setYear2, setYear3, settimeslots, isLoading)=>{
+ export const fetchData = async (setYear1, setYear2, setYear3, settimeslots, setstaffs, isLoading)=>{
     try {
         //promise all is a function that accepts and returns an array. accepts an array of requests and returns a single promise which is array destructured
-        const [year1Response, year2Response, year3Response, timeslotsResponse] = await Promise.all(
+        const [year1Response, year2Response, year3Response, timeslotsResponse, staffResponse] = await Promise.all(
           [
             axios.get("/api/year1"),
             axios.get("/api/year2"),
             axios.get("/api/year3"),
-            axios.get("/api/timeslots")
+            axios.get("/api/timeslots"),
+            axios.get("/api/staffs")
           ]
         );
 
@@ -18,6 +21,7 @@
         setYear2(year2Response.data);
         setYear3(year3Response.data);
         settimeslots(timeslotsResponse.data);
+        setstaffs(staffResponse.data);
         isLoading(false);
       } 
       

@@ -58,24 +58,11 @@ function NavBar() {
 }
 
 function ClassLayout() {
-  const {
-    year1,
-    year2,
-    year3,
-    setYear1,
-    setYear2,
-    setYear3,
-    timeslots,
-    settimeslots,
-    loading,
-    isLoading,
-    now,
-    setNow,
-  } = useContextData();
+  const{year1, year2, year3, setYear1, setYear2, setYear3, timeslots, settimeslots, staffs, setstaffs, loading, isLoading, now, setNow} = useContextData();
 
   const dialogref = useRef(null);
   useEffect(() => {
-    fetchData(setYear1, setYear2, setYear3, settimeslots, isLoading);
+    fetchData(setYear1, setYear2, setYear3, settimeslots, setstaffs, isLoading);
 
     // Update time every second.
     const interval = setInterval(() => {
@@ -83,8 +70,7 @@ function ClassLayout() {
     }, 1000);
 
     return () => clearInterval(interval); // Cleanup on unmount.
-  }, [setYear1, setYear2, setYear3, settimeslots, isLoading, setNow]);
-
+  }, [setYear1, setYear2, setYear3, settimeslots, setstaffs, isLoading, setNow]);
   //getting current time with formatting.
   const formattedTime = now.toLocaleTimeString("en-GB");
   //index of day (since it starts from 0 so -1).
@@ -144,6 +130,7 @@ function Year1TimeTable({ loading, year1, showperiod }) {
               <SkeletonLoader />
             ) : (
               year1.map((cls, index) => (
+                
                 <CarouselItem key={index} className="card basis-1/3">
                   <div>
                     <h2 className="text-[1.5em] font-bold mb-[0.2em]">

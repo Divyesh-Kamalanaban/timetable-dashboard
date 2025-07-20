@@ -13,12 +13,13 @@ export const ContextDataWrapper = ({children}) => {
       const [year2, setYear2] = useState();
       const [year3, setYear3] = useState();
       const [timeslots, settimeslots] = useState();
+      const [staffs, setstaffs] = useState();
     
       // State for time.
       const [now, setNow] = useState(new Date());
 
       return (
-        <ContextData.Provider value={{year1, year2, year3, setYear1, setYear2, setYear3, timeslots, settimeslots, loading, isLoading, now, setNow}}>
+        <ContextData.Provider value={{year1, year2, year3, setYear1, setYear2, setYear3, timeslots, settimeslots, staffs, setstaffs, loading, isLoading, now, setNow}}>
             {children}
         </ContextData.Provider>
       )
