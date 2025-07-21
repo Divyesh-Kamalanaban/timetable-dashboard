@@ -259,18 +259,18 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
                         className="grid grid-cols-3 items-center gap-4"
                       >
                         {console.log("rerendering")}
-                        <Label htmlFor={`period${index - 1}`}>
-                          Period {index - 1}
+                        <Label htmlFor={`period${index}`}>
+                          Period {index+1}
                         </Label>
                         {/*using nullish coalescing operator -  this returns rhs of ?? if lhs of ?? is undefined. so by default the inputs are undefined hence you get it prefilled with the period[1] value.*/}
                         <Input
-                          id={`period${index - 1}`}
-                          value={periodsList[`period${index - 1}`] ?? period[1]}
+                          id={`period${index+1}`}
+                          value={periodsList[`period${index+1}`] ?? period[1]}
                           onChange={(e) => {
                             e.preventDefault();
                             setPeriodsList((prev) => ({
                               ...prev,
-                              [`period${index - 1}`]: e.target.value,
+                              [`period${index+1}`]: e.target.value,
                             }));
                             console.log(periodsList);
                           }}
@@ -284,6 +284,7 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
                 onClick={() => {
 
                   handleSubmit()
+                  setDayDropDown(null);
                   toast.success("Class updated successfully!");
                 }}
               >
