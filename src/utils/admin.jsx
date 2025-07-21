@@ -173,6 +173,7 @@ function ClassList({ loading, year1, year2, year3, isLoading }) {
     </>
   );
 }
+// ClassPopOver component is used to edit the class details in the edit popover.
 function ClassPopOver({ cls, yearindex, isLoading }) {
   const [dayDropDown, setDayDropDown] = useState(null);
   const [periodsList, setPeriodsList] = useState({});
@@ -297,30 +298,136 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
     </Popover>
   );
 }
-function TimeSlotsList({ loading, timeslots, staffs }) {
+
+function TimeSlotsList({ loading, timeslots, isLoading }) {
   return (
     <>
       <div className="card !h-max !w-max flex flex-col justify-center text-[1.5rem] text-white">
         <h1 className="!text-[2rem] !m-0 !p-0">See All Time Slots</h1>
-        {loading ? <Skeleton /> : console.log(staffs)}
         {loading ? (
           <Skeleton />
         ) : (
           <div className="text-left">
             {timeslots.map((slot, index) => (
+              <>
+              <div
+                    key={index}
+                    className="flex flex-row items-center justify-between m-2 rounded-lg w-full"
+                  >
               <p
                 key={index}
                 className="bg-gradient-to-r from-[#7FF899] to-[#22AEF9] p-1 bg-clip-text text-transparent text-2xl font-bold rounded-[20px]"
               >
-                Period {slot.period}: {slot.starthour}:
+                {slot.starthour}:
                 {slot.startminute == 0 ? "00" : slot.startminute} -{" "}
                 {slot.endhour}:{slot.endminute}
               </p>
+              <TimeSlotPopOver slot={slot} isLoading={isLoading} />
+              </div>
+              <Separator className="bg-gray-600"/>
+              </>
             ))}
           </div>
         )}
       </div>
     </>
+  );
+}
+
+//TimeSlotPopOver component is used to edit the timeslot details in the edit popover.
+function TimeSlotPopOver({ slot, isLoading }) {
+  const [startHour, setStartHour] = useState(slot.starthour);
+  const [startMinute, setStartMinute] = useState(slot.startminute);
+  const [endHour, setEndHour] = useState(slot.endhour);
+  const [endMinute, setEndMinute] = useState(slot.endminute);
+  const [period, setPeriod] = useState(slot.period);
+
+  function handleSubmit() {
+    const updatedSlot = {
+      starthour: startHour,
+      startminute: startMinute,
+      endhour: endHour,
+      endminute: endMinute,
+      period: period,
+    };
+    putTimeslot(slot._id, updatedSlot, isLoading);
+  }
+
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="secondary" className=" p-1">
+          <MdModeEdit />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[300px]">
+        <div className="grid gap-4">
+          <div className="space-y-2">
+            <h4 className="leading-none font-medium">Edit Time Slot</h4>
+          </div>
+          <div className="grid gap-2">
+            <div className="grid grid-cols-3 items-center gap-4">
+              <Label htmlFor="start-hour">Start Hour</Label>
+              <Input
+                id="start-hour"
+                type="number"
+                value={startHour}
+                onChange={(e) => setStartHour(e.target.value)}
+                className="col-span-2 h-8"
+              />
+            </div>
+            <div className="grid grid-cols-3 items-center gap-4">
+              <Label htmlFor="start-minute">Start Minute</Label>
+              <Input
+                id="start-minute"
+                type="number"
+                value={startMinute}
+                onChange={(e) => setStartMinute(e.target.value)}
+                className="col-span-2 h-8"
+              />
+            </div>
+            <div className="grid grid-cols-3 items-center gap-4">
+              <Label htmlFor="end-hour">End Hour</Label>
+              <Input
+                id="end-hour"
+                type="number"
+                value={endHour}
+                onChange={(e) => setEndHour(e.target.value)}
+                className="col-span-2 h-8"
+              />
+            </div>
+            <div className="grid grid-cols-3 items-center gap-4">
+              <Label htmlFor="end-minute">End Minute</Label> 
+              <Input
+                id="end-minute"
+                type="number"
+                value={endMinute}
+                onChange={(e) => setEndMinute(e.target.value)}
+                className="col-span-2 h-8"
+              />
+            </div>
+            <div className="grid grid-cols-3 items-center gap-4">
+              <Label htmlFor="period">Period</Label>
+              <Input
+                id="period"
+                type="number"
+                value={period}
+                onChange={(e) => setPeriod(e.target.value)}
+                className="col-span-2 h-8"
+              />
+            </div>
+            <Button
+              onClick={() => {
+                handleSubmit();
+                toast.success("Time slot updated successfully!");
+              }}
+            >
+              Save 
+            </Button>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
 function AdminPanel() {
@@ -366,11 +473,13 @@ function AdminPanel() {
         <TimeSlotsList
           loading={loading}
           timeslots={timeslots}
-          staffs={staffs}
+          isLoading={isLoading}
         />
       </div>
     </>
   );
 }
+
+
 
 export default AdminPanel;
