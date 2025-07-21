@@ -33,6 +33,7 @@ import {
   putYear1,
   putYear2,
   putYear3,
+  putSubjects
 } from "./modules/putdata";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -50,7 +51,12 @@ function ClassList({ loading, year1, year2, year3, isLoading }) {
     <>
       <div className="card !h-fit !w-full flex flex-col justify-center items-stretch text-[1.5rem] text-white">
         <Toaster />
-        <h1 className="!text-[2rem] !m-0 !p-0">See All Classes</h1>
+        <div className="flex flex-row items-center justify-between p-2">
+          <h1 className="!text-[2rem] !m-0 !p-0">See All Classes</h1>
+        {/*Need to insert Popover here */}
+        <AddClassPopOver year1={year1} year2={year2} year3={year3}></AddClassPopOver>
+        </div>
+        
         {loading ? (
           <Skeleton />
         ) : (
@@ -298,7 +304,85 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
     </Popover>
   );
 }
-
+function AddClassPopOver({ year1, year2, year3 }) {
+  const years = [year1, year2, year3]
+  const [yearDropDown, setYearDropDown] = useState(null);
+  const [dayDropDown, setDayDropDown] = useState(null);
+  const [sectionName, setSectionName] = useState(null)
+  return(
+    <Popover>
+          <PopoverTrigger asChild>
+            <Button variant="secondary" className=" p-3">
+              <TiPlus />
+            </Button>
+          </PopoverTrigger>
+          <PopoverContent className="w-[20em] h-max">
+        <div className="grid gap-4">
+          <div className="space-y-2">
+            <h4 className="leading-none font-medium">Create New Class</h4>
+            <p className="text-muted-foreground text-sm">
+              Fill in the details below to create a new class.
+            </p>
+          </div>
+          <div className="grid gap-2">
+            <div className="grid grid-cols-3 items-center gap-4">
+              <Label htmlFor="Section">Section</Label>
+              <Input
+                id="section"
+                value={sectionName}
+                className="col-span-2 h-8"
+                onChange={(e)=>{
+                  setSectionName(e.target.value)
+                }}
+              />
+            </div>
+            <div className="grid grid-cols-3 items-center gap-4">
+                <Label htmlFor={`Year`}>Choose Year</Label>
+                <Select
+                  value={yearDropDown}
+                  onValueChange={(value) => setYearDropDown(value)}
+                  className="w-max"
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Year" />
+                  </SelectTrigger>
+                  <SelectContent className="text-black">
+                    <SelectItem value={0}>1st Year</SelectItem>
+                    <SelectItem value={1}>2nd Year</SelectItem>
+                    <SelectItem value={2}>3rd Year</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            {/* TODO: Add form fields for new class properties here */}
+            <div className="grid grid-cols-3 items-center gap-4">
+                <Label htmlFor={`day`}>Day</Label>
+                <Select
+                  value={dayDropDown}
+                  onValueChange={(value) => setDayDropDown(value)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Day" />
+                  </SelectTrigger>
+                  <SelectContent className="text-black">
+                    <SelectItem value={1}>1</SelectItem>
+                    <SelectItem value={2}>2</SelectItem>
+                    <SelectItem value={3}>3</SelectItem>
+                    <SelectItem value={4}>4</SelectItem>
+                    <SelectItem value={5}>5</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            {dayDropDown == null ? (
+                <p>Choose a day.</p>
+              ) : (
+                years[yearDropDown]
+              )}
+            </div>
+        </div>
+      </PopoverContent>
+        </Popover>
+  )
+}
 function TimeSlotsList({ loading, timeslots, isLoading }) {
   return (
     <>
@@ -431,32 +515,18 @@ function TimeSlotPopOver({ slot, isLoading }) {
   );
 }
 function AdminPanel() {
-  const {
-    year1,
-    year2,
-    year3,
-    setYear1,
-    setYear2,
-    setYear3,
-    timeslots,
-    settimeslots,
-    staffs,
-    setstaffs,
-    loading,
-    isLoading,
-    now,
-    setNow,
-  } = useContextData();
+  const {year1, year2, year3, setYear1, setYear2, setYear3, timeslots, settimeslots, staffs, setstaffs, subjects, setSubjects, loading, isLoading, now, setNow} = useContextData();
 
   // useEffect to fetch data when the component loads.
   useEffect(() => {
-    fetchData(setYear1, setYear2, setYear3, settimeslots, setstaffs, isLoading);
+    fetchData(setYear1, setYear2, setYear3, settimeslots, setstaffs, setSubjects, isLoading);
   }, [
     setYear1,
     setYear2,
     setYear3,
     settimeslots,
     setstaffs,
+    setSubjects,
     isLoading,
     setNow,
   ]);
@@ -475,6 +545,7 @@ function AdminPanel() {
           timeslots={timeslots}
           isLoading={isLoading}
         />
+        {console.log(subjects)}
       </div>
     </>
   );

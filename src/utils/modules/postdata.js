@@ -60,4 +60,17 @@ const postYear3 = async (year3Data, isLoading) => {
   }
 }
 
-export { postStaff, postTimeslot, postYear1, postYear2, postYear3 };
+const postSubjects = async (subjectsData, isLoading) =>{
+  try{
+    const response = await axios.post('/api/subjects', subjectsData);
+    isLoading(false);
+    return response.data;
+  }
+  catch(err){
+    console.error("Error posting subjects data:", err);
+    isLoading(true);
+    throw err;
+  }
+}
+
+export { postStaff, postTimeslot, postYear1, postYear2, postYear3, postSubjects };

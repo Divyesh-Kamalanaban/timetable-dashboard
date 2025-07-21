@@ -59,4 +59,17 @@ const putYear3 = async (year3Id, year3Data, isLoading) => {
   }
 }
 
-export {putStaff, putTimeslot, putYear1, putYear2, putYear3};
+const putSubjects = async (subjectsId, subjectsData, isLoading) => {
+  try {
+    const response = await axios.put(`/api/year3/${subjectsId}`, subjectsData);
+    isLoading(false);
+    return response.data; // Return the updated subjects data
+  } catch (err) {
+    console.error("Error updating subjects data:", err);
+    isLoading(true);
+    throw err; // Re-throw the error for further handling if needed
+  }
+}
+
+
+export {putStaff, putTimeslot, putYear1, putYear2, putYear3, putSubjects};

@@ -10,6 +10,7 @@ const year2 = require('./models/year2.model');
 const year3 = require('./models/year3.model'); 
 const timeslots = require('./models/timeslots.model'); 
 const staffs = require('./models/staffs.model'); 
+const subjects = require('./models/subjects.model')
 
 
 const app = express();
@@ -77,6 +78,17 @@ app.get('/api/staffs', async (req, res)=>{
     res.status(500).json({ message: err.message });
   }
 });
+
+//subjects
+app.get('/api/subjects', async (req, res)=>{
+  try{
+    const subjectsData = await subjects.find();
+    res.json(subjectsData)
+  }
+  catch(err){
+    res.status(500).json({message: err.message})
+  }
+})
 //POST routes for year1, year2, year3, timeslots, and staffs.
 
 //staffs POST
@@ -134,6 +146,17 @@ app.post('/api/timeslots', async (req, res) => {
   }
 });
 
+//subjects POST
+app.post('/api/subjects', async (req, res)=>{
+  try{
+    const subjectsData = new subjects(req.body)
+    res.status(201).json(subjectsData)
+  }
+  catch(err){
+    res.status(400).json({message: err.message})
+  }
+})
+
 //PUT routes for year1, year2, year3, timeslots, and staffs.
 //Note PUT and DELETE routes have :id in the URL as static right now, but in frontend you will dynamically replace with actual IDs.
 //year1 PUT
@@ -186,6 +209,17 @@ app.put('/api/staffs/:id', async (req, res) => {
   }
 });
 
+//subjects PUT
+app.put('/api/subjects:id', async (req, res)=>{
+  try{
+    const subjectsData = await subjects.findByIdAndUpdate(req.params.id, req.body, {new: true});
+    res.json(subjectsData)
+  }
+  catch(err){
+    res.status(400).json({message: err.message})
+  }
+})
+
 //DELETE routes for year1, year2, year3, timeslots, and staffs.
 
 //year1 DELETE
@@ -233,6 +267,17 @@ app.delete('/api/staffs/:id', async (req, res) => {
     res.status(400).json({ message: err.message });
   }
 });
+
+//subjects DELETE
+app.delete('/api/subjects/:id', async (req, res)=>{
+  try{
+    subjects.findByIdAndDelete(req.params.id)
+    res.status(204).send(); // No content
+  }
+  catch(err){
+    res.status(400).json({message: err.message})
+  }
+})
 
 
 //PORT DEFINITION
