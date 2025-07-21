@@ -2,7 +2,7 @@
 /* eslint-disable no-unused-vars */
 //importing axios for promises, hooks from react and css for styling.
 import axios from "axios";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, use } from "react";
 import "../App.css";
 import { useContextData } from "./modules/context";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -25,16 +25,31 @@ import {
   postYear1,
   postYear2,
   postYear3,
-} from "@/postdata";
+} from "@/utils/modules/postdata";
+
+import {
+  putStaff,
+  putTimeslot,
+  putYear1,
+  putYear2,
+  putYear3,
+} from "./modules/putdata";
 import { Separator } from "@/components/ui/separator";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { object } from "zod"; 
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 
 function ClassList({ loading, year1, year2, year3, isLoading }) {
-  const [dayDropDown, setDayDropDown] = useState(null);
   return (
     <>
       <div className="card !h-fit !w-full flex flex-col justify-center items-stretch text-[1.5rem] text-white">
+        <Toaster />
         <h1 className="!text-[2rem] !m-0 !p-0">See All Classes</h1>
         {loading ? (
           <Skeleton />
@@ -59,67 +74,7 @@ function ClassList({ loading, year1, year2, year3, isLoading }) {
                     >
                       {yearindex + 1 + cls.class}
                     </p>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button variant="secondary" className=" p-1">
-                          <MdModeEdit />
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-[300px]">
-                        <div className="grid gap-4">
-                          <div className="space-y-2">
-                            <h4 className="leading-none font-medium">
-                              Edit Class {cls.class} Details
-                            </h4>
-                          </div>
-                          <div className="grid gap-2">
-                            
-                            <div className="grid grid-cols-3 items-center gap-4">
-                              <Label htmlFor="Section Name">Section Name</Label>
-                              <Input
-                                id="section-name"
-                                defaultValue={`${cls.class}`}
-                                className="col-span-2 h-8"
-                              />
-                            </div>
-                            {/*Dropdown menu using shadCN select component; uses dayDropDown for state.*/}
-                              <div className="grid gap-2">
-                                <div className="grid grid-cols-3 items-center gap-4">
-                                  <Label htmlFor={`day`}>  
-                                    Day 
-                                  </Label>  
-                                  <Select value={dayDropDown} onValueChange={(value) => setDayDropDown(value)}>
-                                    <SelectTrigger>
-                                      <SelectValue placeholder="Select Day"/>
-                                    </SelectTrigger>
-                                    <SelectContent className="text-black">
-                                      <SelectItem value={1}>1</SelectItem>
-                                      <SelectItem value={2}>2</SelectItem>
-                                      <SelectItem value={3}>3</SelectItem>
-                                    </SelectContent>
-                                    </Select>
-                                </div>
-                                {dayDropDown == null ? (<p>Choose a day.</p>): (
-                                  Object.entries(cls.timetable[dayDropDown-1]).map((period, index) => period[0].includes('period')?(
-                                    <div key={index} className="grid grid-cols-3 items-center gap-4">
-                                      {console.log('rerendering')}
-                                      <Label htmlFor={`period${index-1}`}>
-                                        Period {index-1}
-                                      </Label>
-                                      <Input 
-                                        id={`period${index-1}`}
-                                        value={period[1]}
-                                        className="col-span-2 h-8"  
-                                      />
-                                    </div>
-                                  ):null)
-                                )}
-                                <Button>Save</Button>
-                              </div>
-                          </div>
-                        </div>
-                      </PopoverContent>
-                    </Popover>
+                    <ClassPopOver cls={cls} isLoading={isLoading} yearindex={yearindex}></ClassPopOver>
                   </div>
                 ))}
               </div>
@@ -216,6 +171,129 @@ function ClassList({ loading, year1, year2, year3, isLoading }) {
         )}
       </div>
     </>
+  );
+}
+function ClassPopOver({ cls, yearindex, isLoading }) {
+  const [dayDropDown, setDayDropDown] = useState(null);
+  const [periodsList, setPeriodsList] = useState({});
+
+  useEffect(() => {
+    if (dayDropDown !== null) {
+      const defaulttimetable = cls.timetable[dayDropDown - 1];
+      //copying the default timetable to a temporary object.
+      const tempPeriodsList = {};
+      for (const [key, value] of Object.entries(defaulttimetable)) {
+        if (key.includes("period")){
+          tempPeriodsList[key] = value;
+        }
+      }
+      console.log(tempPeriodsList);
+      setPeriodsList(tempPeriodsList);
+    }
+  }, [dayDropDown, cls.timetable])
+
+  function handleSubmit(){
+    const finaldata = {...cls}
+    delete finaldata._id; //removing the _id field from the class object to avoid conflicts.
+    finaldata.timetable[dayDropDown - 1] = periodsList;
+    if (yearindex + 1 == 1) {
+      putYear1(cls._id, finaldata, isLoading);
+    } else if (yearindex + 1 == 2) {
+      putYear2(cls._id, finaldata, isLoading);
+    } else if (yearindex + 1 == 3) {
+      putYear3(cls._id, finaldata, isLoading);
+    }
+    
+  }
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="secondary" className=" p-1">
+          <MdModeEdit />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[300px]">
+        <div className="grid gap-4">
+          <div className="space-y-2">
+            <h4 className="leading-none font-medium">
+              Edit Class {cls.class} Details
+            </h4>
+          </div>
+          <div className="grid gap-2">
+            <div className="grid grid-cols-3 items-center gap-4">
+              <Label htmlFor="Section Name">Section Name</Label>
+              <Input
+                id="section-name"
+                defaultValue={`${cls.class}`}
+                className="col-span-2 h-8"
+              />
+            </div>
+            {/*Dropdown menu using shadCN select component; uses dayDropDown for state.*/}
+            <div className="grid gap-2">
+              <div className="grid grid-cols-3 items-center gap-4">
+                <Label htmlFor={`day`}>Day</Label>
+                <Select
+                  value={dayDropDown}
+                  onValueChange={(value) => setDayDropDown(value)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select Day" />
+                  </SelectTrigger>
+                  <SelectContent className="text-black">
+                    <SelectItem value={1}>1</SelectItem>
+                    <SelectItem value={2}>2</SelectItem>
+                    <SelectItem value={3}>3</SelectItem>
+                    <SelectItem value={4}>4</SelectItem>
+                    <SelectItem value={5}>5</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              {dayDropDown == null ? (
+                <p>Choose a day.</p>
+              ) : (
+                Object.entries(cls.timetable[dayDropDown - 1]).map(
+                  (period, index) =>
+                    period[0].includes("period") ? (
+                      <div
+                        key={index}
+                        className="grid grid-cols-3 items-center gap-4"
+                      >
+                        {console.log("rerendering")}
+                        <Label htmlFor={`period${index - 1}`}>
+                          Period {index - 1}
+                        </Label>
+                        {/*using nullish coalescing operator -  this returns rhs of ?? if lhs of ?? is undefined. so by default the inputs are undefined hence you get it prefilled with the period[1] value.*/}
+                        <Input
+                          id={`period${index - 1}`}
+                          value={periodsList[`period${index - 1}`] ?? period[1]}
+                          onChange={(e) => {
+                            e.preventDefault();
+                            setPeriodsList((prev) => ({
+                              ...prev,
+                              [`period${index - 1}`]: e.target.value,
+                            }));
+                            console.log(periodsList);
+                          }}
+                          className="col-span-2 h-8"
+                        />
+                      </div>
+                    ) : null
+                )
+              )}
+              <Button
+                onClick={() => {
+
+                  handleSubmit()
+                  toast.success("Class updated successfully!");
+                }}
+              >
+                Save
+              </Button>
+            </div>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 }
 function TimeSlotsList({ loading, timeslots, staffs }) {
