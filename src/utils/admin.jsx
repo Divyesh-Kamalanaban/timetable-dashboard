@@ -284,7 +284,7 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
                             e.preventDefault();
                             setPeriodsList((prev) => ({
                               ...prev,
-                              ['day']: `Day ${setDayDropDown}`,
+                              ['day']: `Day ${dayDropDown}`,
                               [`period${index+1}`]: e.target.value,
                             }));
                             console.log(periodsList);
@@ -390,7 +390,7 @@ function AddClassDialog({ year1, year2, year3, subjects }) {
              <Select value={periodDropDown[`period${pindex+1}`]??''} onValueChange={(value) => {
                             setPeriodDropDown((prev) => ({
                               ...prev,
-                              ['day']: `Day ${setDayDropDown}`,
+                              ['day']: `Day ${dayDropDown}`,
                               [`period${pindex+1}`]: value,
                             }));
                             console.log(periodDropDown);
