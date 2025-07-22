@@ -26,7 +26,14 @@ import {
   postYear2,
   postYear3,
 } from "@/utils/modules/postdata";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import {
   putStaff,
   putTimeslot,
@@ -46,7 +53,7 @@ import {
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
 
-function ClassList({ loading, year1, year2, year3, isLoading }) {
+function ClassList({ loading, year1, year2, year3, isLoading, subjects }) {
   return (
     <>
       <div className="card !h-fit !w-full flex flex-col justify-center items-stretch text-[1.5rem] text-white">
@@ -54,7 +61,7 @@ function ClassList({ loading, year1, year2, year3, isLoading }) {
         <div className="flex flex-row items-center justify-between p-2">
           <h1 className="!text-[2rem] !m-0 !p-0">See All Classes</h1>
         {/*Need to insert Popover here */}
-        <AddClassPopOver year1={year1} year2={year2} year3={year3}></AddClassPopOver>
+        <AddClassDialog year1={year1} year2={year2} year3={year3} subjects={subjects}></AddClassDialog >
         </div>
         
         {loading ? (
@@ -277,6 +284,7 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
                             e.preventDefault();
                             setPeriodsList((prev) => ({
                               ...prev,
+                              ['day']: `Day ${setDayDropDown}`,
                               [`period${index+1}`]: e.target.value,
                             }));
                             console.log(periodsList);
@@ -304,84 +312,120 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
     </Popover>
   );
 }
-function AddClassPopOver({ year1, year2, year3 }) {
-  const years = [year1, year2, year3]
+
+function AddClassDialog({ year1, year2, year3, subjects }) {
+  const years = [year1, year2, year3];
   const [yearDropDown, setYearDropDown] = useState(null);
   const [dayDropDown, setDayDropDown] = useState(null);
-  const [sectionName, setSectionName] = useState(null)
-  return(
-    <Popover>
-          <PopoverTrigger asChild>
-            <Button variant="secondary" className=" p-3">
-              <TiPlus />
-            </Button>
-          </PopoverTrigger>
-          <PopoverContent className="w-[20em] h-max">
+  const [sectionName, setSectionName] = useState("");
+  const [periodDropDown, setPeriodDropDown] = useState({});
+
+  const periods = ['period 1','period 2','period 3','period 4','period 5','period 6','period 7','period 8']
+
+  return (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="secondary" className="p-3">
+          <TiPlus />
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="w-screen">
+        <DialogHeader>
+          <DialogTitle>Create New Class</DialogTitle>
+          <DialogDescription>
+            Fill in the details below to create a new class.
+          </DialogDescription>
+        </DialogHeader>
+
         <div className="grid gap-4">
-          <div className="space-y-2">
-            <h4 className="leading-none font-medium">Create New Class</h4>
-            <p className="text-muted-foreground text-sm">
-              Fill in the details below to create a new class.
-            </p>
+          <div className="grid grid-cols-3 items-center gap-4">
+            <Label htmlFor="section">Section</Label>
+            <Input
+              id="section"
+              value={sectionName}
+              onChange={(e) => setSectionName(e.target.value)}
+              className="col-span-2 h-8"
+            />
           </div>
-          <div className="grid gap-2">
-            <div className="grid grid-cols-3 items-center gap-4">
-              <Label htmlFor="Section">Section</Label>
-              <Input
-                id="section"
-                value={sectionName}
-                className="col-span-2 h-8"
-                onChange={(e)=>{
-                  setSectionName(e.target.value)
-                }}
-              />
-            </div>
-            <div className="grid grid-cols-3 items-center gap-4">
-                <Label htmlFor={`Year`}>Choose Year</Label>
-                <Select
-                  value={yearDropDown}
-                  onValueChange={(value) => setYearDropDown(value)}
-                  className="w-max"
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Year" />
-                  </SelectTrigger>
-                  <SelectContent className="text-black">
-                    <SelectItem value={0}>1st Year</SelectItem>
-                    <SelectItem value={1}>2nd Year</SelectItem>
-                    <SelectItem value={2}>3rd Year</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            {/* TODO: Add form fields for new class properties here */}
-            <div className="grid grid-cols-3 items-center gap-4">
-                <Label htmlFor={`day`}>Day</Label>
-                <Select
-                  value={dayDropDown}
-                  onValueChange={(value) => setDayDropDown(value)}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Select Day" />
-                  </SelectTrigger>
-                  <SelectContent className="text-black">
-                    <SelectItem value={1}>1</SelectItem>
-                    <SelectItem value={2}>2</SelectItem>
-                    <SelectItem value={3}>3</SelectItem>
-                    <SelectItem value={4}>4</SelectItem>
-                    <SelectItem value={5}>5</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            {dayDropDown == null ? (
-                <p>Choose a day.</p>
-              ) : (
-                years[yearDropDown]
-              )}
-            </div>
+
+          <div className="grid grid-cols-3 items-center gap-4">
+            <Label htmlFor="year">Choose Year</Label>
+            <Select value={yearDropDown} onValueChange={(value) => setYearDropDown(value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select Year" />
+              </SelectTrigger>
+              <SelectContent className="text-black">
+                <SelectItem value="0">1st Year</SelectItem>
+                <SelectItem value="1">2nd Year</SelectItem>
+                <SelectItem value="2">3rd Year</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="grid grid-cols-3 items-center gap-4">
+            <Label htmlFor="day">Day</Label>
+            <Select value={dayDropDown} onValueChange={(value) => setDayDropDown(value)}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select Day" />
+              </SelectTrigger>
+              <SelectContent className="text-black">
+                <SelectItem value="1">1</SelectItem>
+                <SelectItem value="2">2</SelectItem>
+                <SelectItem value="3">3</SelectItem>
+                <SelectItem value="4">4</SelectItem>
+                <SelectItem value="5">5</SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+
+          {dayDropDown == null ? (
+            <p className="text-sm text-muted-foreground">Choose a day.</p>
+          ) : (
+            yearDropDown !== null &&
+            periods.map((period, pindex)=>{
+              return(
+                <div className="grid grid-cols-3 items-center gap-4" key={pindex}>
+            <Label htmlFor={`${period}`}>{period}</Label>
+            {/*Again using nullish coalescing; i am just initializing with an empty string to keep the component in always controlled state.*/}
+             <Select value={periodDropDown[`period${pindex+1}`]??''} onValueChange={(value) => {
+                            setPeriodDropDown((prev) => ({
+                              ...prev,
+                              ['day']: `Day ${setDayDropDown}`,
+                              [`period${pindex+1}`]: value,
+                            }));
+                            console.log(periodDropDown);
+                          }}>
+              <SelectTrigger>
+                <SelectValue placeholder="Select Day" />
+              </SelectTrigger>
+              <SelectContent className="text-black">
+                {Object.entries(subjects[yearDropDown]['sem1']).map(([subkey, subval], subind)=>{
+                  return(
+                    <SelectItem key={subind} value={`${subval}`}>
+                      {subval}
+                    </SelectItem>
+                  )
+                })}
+              </SelectContent>
+            </Select>
+          </div>
+              )
+            })
+            // Object.entries(subjects[parseInt(yearDropDown)]).map(([subentry, subval], subindex) =>
+            //   subentry !== "_id" ? (
+            //     Object.values(subval).map((subject, subjectindex) => (
+            //       <div className="grid grid-cols-3 items-center gap-4" key={`${subentry}-${subjectindex}`}>
+            //         <Label htmlFor={`${subject}`}>{subject}</Label>
+            //         <Input id={`${subject}`} className="col-span-2 h-8" />
+            //       </div>
+            //     ))
+            //   ) : null
+            // )
+          )}
         </div>
-      </PopoverContent>
-        </Popover>
-  )
+      </DialogContent>
+    </Dialog>
+  );
 }
 function TimeSlotsList({ loading, timeslots, isLoading }) {
   return (
@@ -539,6 +583,7 @@ function AdminPanel() {
           year2={year2}
           year3={year3}
           isLoading={isLoading}
+          subjects={subjects}
         />
         <TimeSlotsList
           loading={loading}
