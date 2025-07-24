@@ -430,7 +430,7 @@ function AddClassDialog({ year1, year2, year3, subjects }) {
 function TimeSlotsList({ loading, timeslots, isLoading }) {
   return (
     <>
-      <div className="card !h-max !w-max flex flex-col justify-center text-[1.5rem] text-white">
+      <div className="card !h-max !w-full flex flex-col justify-center text-[1.5rem] text-white">
         <h1 className="!text-[2rem] !m-0 !p-0">See All Time Slots</h1>
         {loading ? (
           <Skeleton />
@@ -448,7 +448,7 @@ function TimeSlotsList({ loading, timeslots, isLoading }) {
               >
                 {slot.starthour}:
                 {slot.startminute == 0 ? "00" : slot.startminute} -{" "}
-                {slot.endhour}:{slot.endminute}
+                {slot.endhour}:{slot.endminute == 0 ? "00" : slot.endminute}
               </p>
               <TimeSlotPopOver slot={slot} isLoading={isLoading} />
               </div>
@@ -558,6 +558,63 @@ function TimeSlotPopOver({ slot, isLoading }) {
     </Popover>
   );
 }
+
+function SubjectList({ subjects }) {
+  const [selectedYearIndex, setSelectedYearIndex] = useState(0); // default to Year 1
+
+  if (!Array.isArray(subjects)) {
+    console.warn("SubjectList received invalid subjects:", subjects);
+    return (
+      <div className="text-red-500 text-center p-4">
+        Failed to load subjects.
+      </div>
+    );
+  }
+
+  const selectedYearSubjects = subjects[selectedYearIndex];
+
+  return (
+    <div className="card !h-fit !w-fit flex flex-col justify-center items-stretch text-[1.5rem] text-white">
+      <div className="flex flex-row items-center justify-between p-2">
+        <h1 className="!text-[1.99rem] !m-0 !p-0">Subjects by Year</h1>
+
+        
+      </div>
+
+      <div className="text-left flex flex-col items-stretch justify-start h-full w-full px-4">
+        <h2><Select
+          value={String(selectedYearIndex)}
+          onValueChange={(value) => setSelectedYearIndex(Number(value))}
+        >
+          <SelectTrigger className="bg-white text-black">
+            <SelectValue placeholder="Select Year" />
+          </SelectTrigger>
+          <SelectContent>
+            {subjects.map((_, index) => (
+              <SelectItem key={index} value={String(index)}>
+                Year {index + 1}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select></h2>
+        <div className="text-left w-full mt-2">
+          {selectedYearSubjects?.sem1?.length > 0 ? (
+            selectedYearSubjects.sem1.map((subject, subIndex) => (
+              <div
+                key={subIndex}
+                className="bg-gradient-to-r from-[#9bd2f7] to-[#63e7b3] text-transparent bg-clip-text font-medium py-1 text-base"
+              >
+                {subject}
+              </div>
+            ))
+          ) : (
+            <p className="text-muted-foreground text-sm">No subjects found.</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 function AdminPanel() {
   const {year1, year2, year3, setYear1, setYear2, setYear3, timeslots, settimeslots, staffs, setstaffs, subjects, setSubjects, loading, isLoading, now, setNow} = useContextData();
 
@@ -576,7 +633,8 @@ function AdminPanel() {
   ]);
   return (
     <>
-      <div className="bg-slate-950 h-screen w-screen justify-center items-center flex">
+      <div className="bg-slate-950 h-max w-screen justify-center items-center flex">
+        <div className="w-full m-2 p-2 flex flex-col items-center justify-items-end h-full">
         <ClassList
           loading={loading}
           year1={year1}
@@ -585,11 +643,16 @@ function AdminPanel() {
           isLoading={isLoading}
           subjects={subjects}
         />
+        </div>
+        
+        <div>
         <TimeSlotsList
           loading={loading}
           timeslots={timeslots}
           isLoading={isLoading}
         />
+        <SubjectList subjects={subjects} />
+        </div>
         {console.log(subjects)}
       </div>
     </>
