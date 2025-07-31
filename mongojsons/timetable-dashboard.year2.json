@@ -1,0 +1,221 @@
+[{
+  "_id": {
+    "$oid": "67c0a125df712df39994daf2"
+  },
+  "class": "A",
+  "timetable": [
+    {
+      "day": "monday",
+      "period1": "control systems",
+      "period2": "Artifical Intelligence",
+      "period3": "Probability and stochastic Process",
+      "period4": "signal processing",
+      "period5": "Universal Human Values",
+      "period6": "Student Mentoring",
+      "period7": "Student Mentoring",
+      "period8": "Student Mentoring"
+    },
+    {
+      "day": "Tuesday",
+      "period1": "Probability and stochastic Process",
+      "period2": "Universal Human values",
+      "period3": "control systems",
+      "period4": "Analog and Linear circuits",
+      "period5": "Signal Processing",
+      "period6": "Counselling",
+      "period7": "Counselling",
+      "period8": "Counselling"
+    },
+    {
+      "day": "Wednesday",
+      "period1": "Analog and Linear circuits lab",
+      "period2": "Analog and linear circuits lab",
+      "period3": "Analog and linear circuits lab",
+      "period4": "Analog and linear circuits lab",
+      "period5": "unallocated",
+      "period6": "Probability and stochastic Process",
+      "period7": "Control systems",
+      "period8": "Lib"
+    },
+    {
+      "day": "Thursday",
+      "period1": "Analog and linear electronic circuits",
+      "period2": "Probability and stochastic Process",
+      "period3": "Artifical Intelligence",
+      "period4": "Universal Human Values",
+      "period5": "Project discussion",
+      "period6": "Project discussion",
+      "period7": "Project discussion",
+      "period8": "Project discussion"
+    },
+    {
+      "day": "Friday",
+      "period1": "Artifical Intelligence",
+      "period2": "Analog and linear electronic circuits",
+      "period3": "Critical and Creative Thinking skills",
+      "period4": "Critical and Creative Thinking skills",
+      "period5": "Social Engineering",
+      "period6": "Social Engineering",
+      "period7": "Signal Processing",
+      "period8": "Seminar"
+    }
+  ],
+  "staffs": {
+    "control systems": "Dr Kapileshwar",
+    "Artifical Intelligence": "Dr R Vani",
+    "Probability and stochastic Process": "Mr M kannan",
+    "Analog and linear electronic circuits": "Dr Reji",
+    "Signal Processing": "Dr Ramya G",
+    "Social Engineering": "Mrs Vijayalakshmi",
+    "Critical and Creative Thinking skills": "Mrs. Priyanga Lawrence",
+    "Analog and Linear circuits lab": "Mrs. Arthi Elaveni and Mr Vinothkumar G"
+  }
+},
+{
+  "_id": {
+    "$oid": "67c0a18ddf712df39994daf4"
+  },
+  "class": "B",
+  "timetable": [
+    {
+      "day": "Day 1",
+      "period1": "Social Engineering",
+      "period2": "Social Engineering",
+      "period3": "Probability and Stochastic Process",
+      "period4": "Artificial Intelligence",
+      "period5": "Analog and Linear Electronic Circuits",
+      "period6": "Signal Processing",
+      "period7": "unallocated",
+      "period8": "Seminar"
+    },
+    {
+      "day": "Day 2",
+      "period1": "Analog and Linear Electronic Circuits Lab",
+      "period2": "unallocated",
+      "period3": "Analog and Linear Electronic Circuits Lab",
+      "period4": "Control Systems",
+      "period5": "Probability and Stochastic Process",
+      "period6": "Analog and Linear Electronic Circuits",
+      "period7": "unallocated",
+      "period8": "LIB"
+    },
+    {
+      "day": "Day 3",
+      "period1": "Signal Processing",
+      "period2": "Control Systems",
+      "period3": "Critical and Creative Thinking Skills",
+      "period4": "Critical and Creative Thinking Skills",
+      "period5": "unallocated",
+      "period6": "Universal Human Values",
+      "period7": "unallocated",
+      "period8": "Counselling"
+    },
+    {
+      "day": "Day 4",
+      "period1": "Probability and Stochastic Process",
+      "period2": "Universal Human Values",
+      "period3": "Signal Processing",
+      "period4": "Artificial Intelligence",
+      "period5": "unallocated",
+      "period6": "unallocated",
+      "period7": "unallocated",
+      "period8": "Project Discussion"
+    },
+    {
+      "day": "Day 5",
+      "period1": "Analog and Linear Electronic Circuits",
+      "period2": "Control Systems",
+      "period3": "Universal Human Values",
+      "period4": "Probability and Stochastic Process",
+      "period5": "Lunch",
+      "period6": "Artificial Intelligence",
+      "period7": "unallocated",
+      "period8": "Students Mentoring"
+    }
+  ],
+  "staffs": {
+    "Probability and Stochastic Process": "Dr S Prema",
+    "Analog and Linear Electronic Circuits": "Dr Kavitha Devi",
+    "Signal Processing": "Dr Praveenkumar",
+    "Analog and Linear Electronic Circuits Lab": "Ms Alice Linsie, Dr Judy Simon",
+    "Artificial Intelligence": "Dr Srisabarimani",
+    "Control Systems": "Dr Megala",
+    "Social Engineering": "Mrs. Vijayalakshmi",
+    "Critical and Creative Thinking Skills": "Mrs. Priyanga Lawrence",
+    "Universal Human Values": "Dr B Roopa"
+  }
+},
+{
+  "_id": {
+    "$oid": "67c0a244df712df39994daf6"
+  },
+  "class": "C",
+  "timetable": [
+    {
+      "day": "Day 1",
+      "period1": "Analog and Linear Electronic Circuits",
+      "period2": "Probability and Stochastic Process",
+      "period3": "Social Engineering",
+      "period4": "Social Engineering",
+      "period5": "Critical and Creative Thinking Skills",
+      "period6": "Critical and Creative Thinking Skills",
+      "period7": "Artificial Intelligence",
+      "period8": "LIB"
+    },
+    {
+      "day": "Day 2",
+      "period1": "Artificial Intelligence",
+      "period2": "Universal Human Values",
+      "period3": "Control Systems",
+      "period4": "Signal Processing",
+      "period5": "Probability and Stochastic Process",
+      "period6": "Students Mentoring",
+      "period7": "unallocated",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 3",
+      "period1": "Probability and Stochastic Process",
+      "period2": "Control Systems",
+      "period3": "Universal Human Values",
+      "period4": "Analog and Linear Electronic Circuits",
+      "period5": "unallocated",
+      "period6": "unallocated",
+      "period7": "Project Discussion",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 4",
+      "period1": "Analog and Linear Electronic Circuits Lab",
+      "period2": "unallocated",
+      "period3": "Analog and Linear Electronic Circuits Lab",
+      "period4": "Universal Human Values",
+      "period5": "Signal Processing",
+      "period6": "Seminar",
+      "period7": "unallocated",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 5",
+      "period1": "Signal Processing",
+      "period2": "Control Systems",
+      "period3": "Artificial Intelligence",
+      "period4": "Probability and Stochastic Process",
+      "period5": "Lunch",
+      "period6": "Analog and Linear Electronic Circuits",
+      "period7": "unallocated",
+      "period8": "Counselling"
+    }
+  ],
+  "staffs": {
+    "Probability and Stochastic Process": "Mr M Kannan",
+    "Analog and Linear Electronic Circuits": "Dr Latha Manju",
+    "Signal Processing": "Mr Vinoth Kumar",
+    "Analog and Linear Electronic Circuits Lab": "Dr Padmavathi B, Dr Kapileswar N",
+    "Artificial Intelligence": "Dr Arthi R",
+    "Control Systems": "Dr G Ramya",
+    "Social Engineering": "Mrs. Vijayalakshmi",
+    "Critical and Creative Thinking Skills": "Mrs. Priyanga Lawernce",
+    "Universal Human Values": "Dr T Yogashanthi"
+  }
+}]

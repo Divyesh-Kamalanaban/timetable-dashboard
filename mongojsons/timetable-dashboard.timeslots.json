@@ -1,0 +1,80 @@
+[{
+  "_id": {
+    "$oid": "67ecb8bc4997177fa95e6167"
+  },
+  "period": 1,
+  "starthour": 8,
+  "startminute": 0,
+  "endhour": 8,
+  "endminute": 50
+},
+{
+  "_id": {
+    "$oid": "67ecb8bc4997177fa95e6168"
+  },
+  "period": 2,
+  "starthour": 8,
+  "startminute": 50,
+  "endhour": 9,
+  "endminute": 40
+},
+{
+  "_id": {
+    "$oid": "67ecb8bc4997177fa95e6169"
+  },
+  "period": 3,
+  "starthour": 9,
+  "startminute": 50,
+  "endhour": 10,
+  "endminute": 40
+},
+{
+  "_id": {
+    "$oid": "67ecb8bc4997177fa95e616a"
+  },
+  "period": 4,
+  "starthour": 10,
+  "startminute": 40,
+  "endhour": 11,
+  "endminute": 30
+},
+{
+  "_id": {
+    "$oid": "67ecb8bc4997177fa95e616b"
+  },
+  "period": 5,
+  "starthour": 12,
+  "startminute": 20,
+  "endhour": 13,
+  "endminute": 10
+},
+{
+  "_id": {
+    "$oid": "67ecb8bc4997177fa95e616c"
+  },
+  "period": 6,
+  "starthour": 13,
+  "startminute": 10,
+  "endhour": 14,
+  "endminute": 0
+},
+{
+  "_id": {
+    "$oid": "67ecb8bc4997177fa95e616d"
+  },
+  "period": 7,
+  "starthour": 14,
+  "startminute": 0,
+  "endhour": 14,
+  "endminute": 50
+},
+{
+  "_id": {
+    "$oid": "67ecb8bc4997177fa95e616e"
+  },
+  "period": 8,
+  "starthour": 14,
+  "startminute": 50,
+  "endhour": 15,
+  "endminute": 40
+}]

@@ -1,0 +1,228 @@
+[{
+  "_id": {
+    "$oid": "67c0a531df712df39994dafc"
+  },
+  "class": "A",
+  "timetable": [
+    {
+      "day": "Day 1",
+      "period1": "Analog and Digital Communication",
+      "period2": "Machine Learning Algorithms",
+      "period3": "Advanced Digital System Design",
+      "period4": "Data Science",
+      "period5": "Machine Learning Algorithms",
+      "period6": "Analog and Digital Communication Lab",
+      "period7": "unallocated",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 2",
+      "period1": "Employability Skills and Practices",
+      "period2": "Employability Skills and Practices",
+      "period3": "Machine Learning Algorithms",
+      "period4": "Microwave and Optical Communication",
+      "period5": "Indian Traditional Knowledge",
+      "period6": "Fundamentals of Biomedical Processing",
+      "period7": "Analog and Digital Communication Lab",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 3",
+      "period1": "Advanced Digital System Design",
+      "period2": "Fundamentals of Biomedical Processing",
+      "period3": "Microwave and Optical Communication",
+      "period4": "Data Science",
+      "period5": "Students Mentoring",
+      "period6": "unallocated",
+      "period7": "unallocated",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 4",
+      "period1": "Microwave and Optical Communication",
+      "period2": "Advanced Digital System Design",
+      "period3": "Fundamentals of Biomedical Processing",
+      "period4": "Machine Learning Algorithms",
+      "period5": "Analog and Digital Communication",
+      "period6": "Analog and Digital Communication Lab",
+      "period7": "LIB",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 5",
+      "period1": "Communication Lab",
+      "period2": "Lunch",
+      "period3": "Analog and Digital Communication",
+      "period4": "unallocated",
+      "period5": "unallocated",
+      "period6": "unallocated",
+      "period7": "Counselling",
+      "period8": "unallocated"
+    }
+  ],
+  "staffs": {
+    "Data Science": "Dr R Vani",
+    "Analog and Digital Communication": "Dr Judy Simon",
+    "Microwave and Optical Communication": "Dr Manoj Kumar",
+    "Advanced Digital System Design": "Dr Shunmugathammal",
+    "Machine Learning Algorithms": "Dr Ramani",
+    "Machine Learning Algorithms Lab": "Dr Vani R, Dr Megala V",
+    "Communication Lab": "Dr Lathamanju, Dr Manoj Kumar D",
+    "Fundamentals of Biomedical Processing": "Dr C Aravindan",
+    "Indian Traditional Knowledge": "Dr Rema V",
+    "Project": "Dr Shunmugathammal",
+    "Employability Skills and Practices": "Mr Meenakshi Sundaram"
+  }
+},
+{
+  "_id": {
+    "$oid": "67c0a8e7df712df39994db01"
+  },
+  "class": "B",
+  "timetable": [
+    {
+      "day": "Day 1",
+      "period1": "Microwave and Optical Communication",
+      "period2": "Analog and Digital Communication",
+      "period3": "Data Science",
+      "period4": "Indian Traditional Knowledge",
+      "period5": "Machine Learning Algorithms",
+      "period6": "Fundamentals of Biomedical Processing",
+      "period7": "Project",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 2",
+      "period1": "Advanced Digital System Design",
+      "period2": "Analog and Digital Communication",
+      "period3": "Employability Skills and Practices",
+      "period4": "Employability Skills and Practices",
+      "period5": "Machine Learning Algorithms",
+      "period6": "Project",
+      "period7": "Seminar",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 3",
+      "period1": "unallocated",
+      "period2": "Communication Lab",
+      "period3": "unallocated",
+      "period4": "unallocated",
+      "period5": "unallocated",
+      "period6": "Advanced Digital System Design",
+      "period7": "Fundamentals of Biomedical Processing",
+      "period8": "LIB"
+    },
+    {
+      "day": "Day 4",
+      "period1": "Fundamentals of Biomedical Processing",
+      "period2": "Advanced Digital System Design",
+      "period3": "Microwave and Optical Communication",
+      "period4": "Data Science",
+      "period5": "unallocated",
+      "period6": "Project",
+      "period7": "Counselling",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 5",
+      "period1": "Machine Learning Algorithms",
+      "period2": "Machine Learning Algorithms",
+      "period3": "Fundamentals of Biomedical Processing",
+      "period4": "Lunch",
+      "period5": "Microwave and Optical Communication",
+      "period6": "unallocated",
+      "period7": "Students Mentoring",
+      "period8": "unallocated"
+    }
+  ],
+  "staffs": {
+    "Data Science": "Dr Arthi",
+    "Analog and Digital Communication": "Mr Mahesh Kumar",
+    "Microwave and Optical Communication": "Dr Reji",
+    "Advanced Digital System Design": "Dr Ramani",
+    "Machine Learning Algorithms": "Dr Srisabarimani",
+    "Machine Learning Algorithms Lab": "Dr Arthi R, Ms Reshma V",
+    "Communication Lab": "Dr Jacintha, Mr Mahesh Kumar N",
+    "Fundamentals of Biomedical Processing": "Dr C Aravindan",
+    "Indian Traditional Knowledge": "Dr Kuljeet Kaur",
+    "Project": "Dr Reji V",
+    "Employability Skills and Practices": "Mr Meenakshi Sundaram"
+  }
+},
+{
+  "_id": {
+    "$oid": "67c0a9c6df712df39994db03"
+  },
+  "class": "C",
+  "timetable": [
+    {
+      "day": "Day 1",
+      "period1": "Fundamentals of Biomedical Processing",
+      "period2": "Data Science",
+      "period3": "Microwave and Optical Communication",
+      "period4": "Analog and Digital Communication",
+      "period5": "unallocated",
+      "period6": "Students Mentoring",
+      "period7": "unallocated",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 2",
+      "period1": "Microwave and Optical Communication",
+      "period2": "Machine Learning Algorithms",
+      "period3": "Fundamentals of Biomedical Processing",
+      "period4": "Analog and Digital Communication",
+      "period5": "Advanced Digital System Design",
+      "period6": "LIB",
+      "period7": "Counselling",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 3",
+      "period1": "Advanced Digital System Design",
+      "period2": "Machine Learning Algorithms",
+      "period3": "Indian Traditional Knowledge",
+      "period4": "Analog and Digital Communication",
+      "period5": "unallocated",
+      "period6": "Microwave and Optical Communication",
+      "period7": "Project",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 4",
+      "period1": "unallocated",
+      "period2": "Communication Lab",
+      "period3": "unallocated",
+      "period4": "unallocated",
+      "period5": "Employability Skills and Practices",
+      "period6": "Employability Skills and Practices",
+      "period7": "Project",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 5",
+      "period1": "Machine Learning Algorithms",
+      "period2": "Data Science",
+      "period3": "Machine Learning Algorithms",
+      "period4": "Lunch",
+      "period5": "Advanced Digital System Design",
+      "period6": "Fundamentals of Biomedical Processing",
+      "period7": "Project",
+      "period8": "unallocated"
+    }
+  ],
+  "staffs": {
+    "Data Science": "Dr Aravindan C",
+    "Analog and Digital Communication": "Dr Roopa",
+    "Microwave and Optical Communication": "Dr Reji",
+    "Advanced Digital System Design": "Dr Ramani",
+    "Machine Learning Algorithms": "Dr Srisabarimani",
+    "Machine Learning Algorithms Lab": "Dr Ramani P, Ms Reshma P",
+    "Communication Lab": "Dr Ramya, Dr Supraja",
+    "Fundamentals of Biomedical Processing": "Dr Supraja",
+    "Indian Traditional Knowledge": "Mr S Athisayamani",
+    "Project": "Dr Sri Sabarimani",
+    "Employability Skills and Practices": "Mr Meenakshi Sundaram"
+  }
+}]

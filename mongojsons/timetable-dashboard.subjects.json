@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "687e9209029d790f6db2f8bd"
+  },
+  "year": 1,
+  "sem1": [
+    "Communicative English",
+    "Advanced Calculus and Complex Analysis",
+    "Chemistry",
+    "Chemistry Lab",
+    "Engineering Graphics and Design",
+    "Electronic System and PCB design",
+    "Electronic System and PCB design lab",
+    "Programming for Problem Solving",
+    "Programming for Problem Solving lab",
+    "Environmental Science",
+    "General Aptitude",
+    "Biology",
+    "Constitution of India"
+  ],
+  "sem2": [
+    "Communicative English",
+    "Advanced Calculus and Complex Analysis",
+    "Chemistry",
+    "Chemistry Lab",
+    "Engineering Graphics and Design",
+    "Electronic System and PCB design",
+    "Electronic System and PCB design lab",
+    "Programming for Problem Solving",
+    "Programming for Problem Solving lab",
+    "Environmental Science",
+    "General Aptitude",
+    "Biology",
+    "Constitution of India"
+  ]
+}]

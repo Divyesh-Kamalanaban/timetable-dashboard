@@ -1,0 +1,467 @@
+[{
+  "_id": {
+    "$oid": "67c0ab10df712df39994db08"
+  },
+  "class": "A",
+  "timetable": [
+    {
+      "day": "Day 1",
+      "period1": "Chemistry Lab",
+      "period2": "Chemistry Lab",
+      "period3": "Communicative English",
+      "period4": "Programming for Problem Solving lab",
+      "period5": "Advanced Calculus and Complex Analysis",
+      "period6": "Advanced Calculus and Complex Analysis",
+      "period7": "Students mentoring",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 2",
+      "period1": "PPS/PCB Lab",
+      "period2": "PPS/PCB Lab",
+      "period3": "Advanced Calculus and Complex Analysis",
+      "period4": "Programming for Problem Solving lab",
+      "period5": "Chemistry Lab",
+      "period6": "Chemistry",
+      "period7": "Engineering Graphics and Design",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 3",
+      "period1": "Advanced Calculus and Complex Analysis",
+      "period2": "Advanced Calculus and Complex Analysis",
+      "period3": "LIB",
+      "period4": "Biology",
+      "period5": "Electronic System and PCB design",
+      "period6": "Communicative English",
+      "period7": "Environmental Science",
+      "period8": "Seminar"
+    },
+    {
+      "day": "Day 4",
+      "period1": "Constitution of India",
+      "period2": "Electronic System and PCB design",
+      "period3": "Advanced Calculus and Complex Analysis",
+      "period4": "Biology",
+      "period5": "PPS/PCB Lab",
+      "period6": "PPS/PCB Lab",
+      "period7": "Chemistry Lab",
+      "period8": "Seminar"
+    },
+    {
+      "day": "Day 5",
+      "period1": "Chemistry Lab",
+      "period2": "Counselling",
+      "period3": "General Aptitude",
+      "period4": "Lunch",
+      "period5": "Communicative English",
+      "period6": "Programming for Problem Solving lab",
+      "period7": "Project Discussion",
+      "period8": "unallocated"
+    }
+  ],
+  "staffs": {
+    "Communicative English": "Ms K Srividhya Lakshmi",
+    "Advanced Calculus and Complex Analysis": "Dr B Srirekha",
+    "Chemistry": "Dr P Arthi",
+    "Chemistry Lab": "Dr P Arthi",
+    "Engineering Graphics and Design": "Dr N Parthipan",
+    "Electronic System and PCB design": "Dr Christeena Joseph",
+    "Electronic System and PCB design lab": "Dr Christeena Joseph",
+    "Programming for Problem Solving": "Dr N Sree Rathna Lakshmi",
+    "Programming for Problem Solving lab": "Dr Aravindhan",
+    "Environmental Science": "Dr K Sambath Kumar",
+    "General Aptitude": "Mr Iyappan",
+    "Biology": "Dr S Vasthi Gana Rani",
+    "Constitution of India": "Dr Diana"
+  }
+},
+{
+  "_id": {
+    "$oid": "67c0abc8df712df39994db0a"
+  },
+  "class": "B",
+  "timetable": [
+    {
+      "day": "Day 1",
+      "period1": "Chemistry Lab",
+      "period2": "Chemistry Lab",
+      "period3": "LIB",
+      "period4": "Communicative English",
+      "period5": "Chemistry Lab",
+      "period6": "Advanced Calculus and Complex Analysis",
+      "period7": "Environmental Science",
+      "period8": "Seminar"
+    },
+    {
+      "day": "Day 2",
+      "period1": "Chemistry Lab",
+      "period2": "Electronic System and PCB design",
+      "period3": "Advanced Calculus and Complex Analysis",
+      "period4": "Engineering Graphics and Design",
+      "period5": "Engineering Graphics and Design",
+      "period6": "Counseling",
+      "period7": "unallocated",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 3",
+      "period1": "PPS/PCB Lab",
+      "period2": "PPS/PCB Lab",
+      "period3": "Programming for Problem Solving lab",
+      "period4": "Chemistry Lab",
+      "period5": "Biology",
+      "period6": "Students Mentoring",
+      "period7": "unallocated",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 4",
+      "period1": "Biology",
+      "period2": "Advanced Calculus and Complex Analysis",
+      "period3": "Programming for Problem Solving lab",
+      "period4": "Communicative English",
+      "period5": "General Aptitude",
+      "period6": "Electronic System and PCB design",
+      "period7": "Seminar",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 5",
+      "period1": "Advanced Calculus and Complex Analysis",
+      "period2": "Chemistry Lab",
+      "period3": "Programming for Problem Solving lab",
+      "period4": "Communicative English",
+      "period5": "PPS/PCB Lab",
+      "period6": "Constitution of India",
+      "period7": "Project Discussion",
+      "period8": "unallocated"
+    }
+  ],
+  "staffs": {
+    "Communicative English": "Dr Rema V",
+    "Advanced Calculus and Complex Analysis": "Mrs.M Shanthi",
+    "Chemistry": "Dr K Hema",
+    "Chemistry Lab": "Dr K. Hema",
+    "Engineering Graphics and Design": "Mr N Manikandan",
+    "Electronic System and PCB design": "Mrs Annapoorani",
+    "Electronic System and PCB design lab": "Mrs Annapoorani",
+    "Programming for Problem Solving": "Dr Kavithadevi",
+    "Programming for Problem Solving lab": "Dr Thangam",
+    "Environmental Science": "Dr Jayasree",
+    "General Aptitude": "Mr Iyappan",
+    "Biology": "Dr Venkat Kumar",
+    "Constitution of India": "Dr Kuljeet Kaur"
+  }
+},
+{
+  "_id": {
+    "$oid": "67c0adbddf712df39994db0e"
+  },
+  "class": "C",
+  "timetable": [
+    {
+      "day": "Day 1",
+      "period1": "Biology",
+      "period2": "Chemistry Lab",
+      "period3": "Chemistry Lab",
+      "period4": "Chemistry Lab",
+      "period5": "General Aptitude",
+      "period6": "General Aptitude",
+      "period7": "Communicative English",
+      "period8": "Counselling"
+    },
+    {
+      "day": "Day 2",
+      "period1": "Advanced Calculus and Complex Analysis",
+      "period2": "Communicative English",
+      "period3": "Electronic System and PCB design",
+      "period4": "Programming for Problem Solving lab",
+      "period5": "PPS/PCB Lab",
+      "period6": "PPS/PCB Lab",
+      "period7": "Project Discussion",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 3",
+      "period1": "Chemistry Lab",
+      "period2": "Constitution of India",
+      "period3": "LIB",
+      "period4": "Advanced Calculus and Complex Analysis",
+      "period5": "Biology",
+      "period6": "Programming for Problem Solving lab",
+      "period7": "Seminar",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 4",
+      "period1": "unallocated",
+      "period2": "Engineering Graphics and Design",
+      "period3": "unallocated",
+      "period4": "unallocated",
+      "period5": "Chemistry Lab",
+      "period6": "Advanced Calculus and Complex Analysis",
+      "period7": "Programming for Problem Solving lab",
+      "period8": "Environmental Science"
+    },
+    {
+      "day": "Day 5",
+      "period1": "PPS/PCB Lab",
+      "period2": "Advanced Calculus and Complex Analysis",
+      "period3": "Chemistry Lab",
+      "period4": "Lunch",
+      "period5": "Communicative English",
+      "period6": "Electronic System and PCB design",
+      "period7": "Students Mentoring",
+      "period8": "unallocated"
+    }
+  ],
+  "staffs": {
+    "Communicative English": "Dr I Diana Rachal",
+    "Advanced Calculus and Complex Analysis": "Mr C Rajapandian",
+    "Chemistry": "Dr Yogaanand",
+    "Chemistry Lab": "Dr Yogaanand",
+    "Engineering Graphics and Design": "Dr B M Swamipunniyakodi",
+    "Electronic System and PCB design": "Dr K Durga Devi",
+    "Electronic System and PCB design lab": "Dr K Durga Devi",
+    "Programming for Problem Solving": "Dr Saravanan",
+    "Programming for Problem Solving lab": "Dr Praveenkumar B",
+    "Environmental Science": "Dr Hema",
+    "General Aptitude": "Mr Sarath Kumar",
+    "Biology": "Dr Jayasree",
+    "Constitution of India": "Ms K Srividhya Lakshmi"
+  }
+},
+{
+  "_id": {
+    "$oid": "67c0af32df712df39994db17"
+  },
+  "class": "D",
+  "timetable": [
+    {
+      "day": "Day 1",
+      "period1": "Communicative English",
+      "period2": "Chemistry Lab",
+      "period3": "Chemistry Lab",
+      "period4": "Chemistry Lab",
+      "period5": "Advanced Calculus and Complex Analysis",
+      "period6": "Electronic System and PCB design lab",
+      "period7": "Programming for Problem Solving lab",
+      "period8": "Counselling"
+    },
+    {
+      "day": "Day 2",
+      "period1": "Engineering Graphics and Design",
+      "period2": "Engineering Graphics and Design",
+      "period3": "Engineering Graphics and Design",
+      "period4": "Engineering Graphics and Design",
+      "period5": "Communicative English",
+      "period6": "Advanced Calculus and Complex Analysis",
+      "period7": "Students Mentoring",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 3",
+      "period1": "Advanced Calculus and Complex Analysis",
+      "period2": "Programming for Problem Solving lab",
+      "period3": "PPS/PCB Lab",
+      "period4": "PPS/PCB Lab",
+      "period5": "unallocated",
+      "period6": "Chemistry Lab",
+      "period7": "Project Discussion",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 4",
+      "period1": "Chemistry Lab",
+      "period2": "Advanced Calculus and Complex Analysis",
+      "period3": "PPS/PCB Lab",
+      "period4": "PPS/PCB Lab",
+      "period5": "Biology",
+      "period6": "Environmental Science",
+      "period7": "General Aptitude",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 5",
+      "period1": "Programming for Problem Solving lab",
+      "period2": "Communicative English",
+      "period3": "Biology",
+      "period4": "Lunch",
+      "period5": "Electronic System and PCB design lab",
+      "period6": "Constitution of India",
+      "period7": "Seminar",
+      "period8": "unallocated"
+    }
+  ],
+  "staffs": {
+    "Communicative English": "Dr R Shalini",
+    "Advanced Calculus and Complex Analysis": "Mr N Abhalash",
+    "Chemistry": "Dr T V Rajendran",
+    "Chemistry Lab": "Dr T V Rajendran",
+    "Engineering Graphics and Design": "Dr S Parthiban",
+    "Electronic System and PCB design": "Dr Sharmila",
+    "Electronic System and PCB design lab": "Dr Sharmila",
+    "Programming for Problem Solving": "Dr Karthika",
+    "Programming for Problem Solving lab": "Dr Karthiga",
+    "Environmental Science": "Dr Arthi",
+    "General Aptitude": "Mr Iyappan",
+    "Biology": "Dr Pandiyan",
+    "Constitution of India": "Ms Afrin Khan"
+  }
+},
+{
+  "_id": {
+    "$oid": "67c0b17bdf712df39994db19"
+  },
+  "class": "A-DS",
+  "timetable": [
+    {
+      "day": "Day 1",
+      "period1": "Basic Civil and Mechanical Workshop",
+      "period2": "Basic Civil and Mechanical Workshop",
+      "period3": "Basic Civil and Mechanical Workshop",
+      "period4": "Basic Civil and Mechanical Workshop",
+      "period5": "Advanced Calculus and Complex Analysis",
+      "period6": "Programming for Problem Solving lab",
+      "period7": "PPS/PCB Lab",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 2",
+      "period1": "Electronic System and PCB design lab",
+      "period2": "Chemistry Lab",
+      "period3": "Chemistry Lab",
+      "period4": "Chemistry Lab",
+      "period5": "General Aptitude",
+      "period6": "French/German/Japanese",
+      "period7": "Counselling",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 3",
+      "period1": "Advanced Calculus and Complex Analysis",
+      "period2": "Electronic System and PCB design lab",
+      "period3": "Chemistry Lab",
+      "period4": "Programming for Problem Solving lab",
+      "period5": "unallocated",
+      "period6": "unallocated",
+      "period7": "PPS/PCB Lab",
+      "period8": "French/German/Japanese"
+    },
+    {
+      "day": "Day 4",
+      "period1": "French/German/Japanese",
+      "period2": "Advanced Calculus and Complex Analysis",
+      "period3": "Chemistry Lab",
+      "period4": "Biology",
+      "period5": "Environmental Science",
+      "period6": "Students Mentoring",
+      "period7": "unallocated",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 5",
+      "period1": "Biology",
+      "period2": "Advanced Calculus and Complex Analysis",
+      "period3": "LIB",
+      "period4": "Programming for Problem Solving lab",
+      "period5": "Lunch",
+      "period6": "Chemistry Lab",
+      "period7": "French/German/Japanese",
+      "period8": "Counselling"
+    }
+  ],
+  "staffs": {
+    "French/German/Japanese": "Ms.Bharathi, Mr. Hari",
+    "Advanced Calculus and Complex Analysis": "Dr B Muthu Deepika",
+    "Chemistry": "Dr Yogaanand",
+    "Chemistry Lab": "Dr Yogaanand",
+    "Basic Civil and Mechanical Workshop": "Mr C Uthirapathy",
+    "Electronic System and PCB design": "Dr Mohan Babu",
+    "Electronic System and PCB design lab": "Dr Mohan Babu",
+    "Programming for Problem Solving": "Dr NV SreeRathna Lakshmi",
+    "Programming for Problem Solving lab": "Dr Nagarajan S",
+    "Environmental Science": "Dr K Sambath Kumar",
+    "General Aptitude": "Mr Sarath Kumar",
+    "Biology": "Dr Venkat Kumar"
+  }
+},
+{
+  "_id": {
+    "$oid": "67c0b1ccdf712df39994db1b"
+  },
+  "class": "B-DS",
+  "timetable": [
+    {
+      "day": "Day 1",
+      "period1": "Programming for Problem Solving lab",
+      "period2": "Electronic System and PCB design lab",
+      "period3": "PPS/PCB Lab",
+      "period4": "PPS/PCB Lab",
+      "period5": "Chemistry Lab",
+      "period6": "Advanced Calculus and Complex Analysis",
+      "period7": "Philosophy of Engineering",
+      "period8": "Counselling"
+    },
+    {
+      "day": "Day 2",
+      "period1": "Chemistry Lab",
+      "period2": "Advanced Calculus and Complex Analysis",
+      "period3": "PPS/PCB Lab",
+      "period4": "PPS/PCB Lab",
+      "period5": "Programming for Problem Solving lab",
+      "period6": "Environmental Science",
+      "period7": "LIB",
+      "period8": "Counselling"
+    },
+    {
+      "day": "Day 3",
+      "period1": "Programming for Problem Solving lab",
+      "period2": "Chemistry Lab",
+      "period3": "Chemistry Lab",
+      "period4": "unallocated",
+      "period5": "Philosophy of Engineering",
+      "period6": "Philosophy of Engineering",
+      "period7": "French/German/Japanese",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 4",
+      "period1": "French/German/Japanese",
+      "period2": "Advanced Calculus and Complex Analysis",
+      "period3": "Biology",
+      "period4": "Electronic System and PCB design lab",
+      "period5": "Chemistry Lab",
+      "period6": "Chemistry Lab",
+      "period7": "Students Mentoring",
+      "period8": "unallocated"
+    },
+    {
+      "day": "Day 5",
+      "period1": "Biology",
+      "period2": "Advanced Calculus and Complex Analysis",
+      "period3": "Basic Civil and Mechanical Workshop",
+      "period4": "Basic Civil and Mechanical Workshop",
+      "period5": "Basic Civil and Mechanical Workshop",
+      "period6": "Basic Civil and Mechanical Workshop",
+      "period7": "General Aptitude",
+      "period8": "unallocated"
+    }
+  ],
+  "staffs": {
+    "French/German/Japanese": "Ms.Bharathi, Mr. Hari",
+    "Advanced Calculus and Complex Analysis": "Mrs S Padmapriya",
+    "Chemistry": "Dr TV Rajendran",
+    "Chemistry Lab": "Dr TV Rajendran",
+    "Basic Civil and Mechanical Workshop": "Dr Ramesh V",
+    "Electronic System and PCB design": "Dr Padmavathi B",
+    "Electronic System and PCB design lab": "Dr Saravanan",
+    "Programming for Problem Solving": "Dr Kavithadevi",
+    "Programming for Problem Solving lab": "Dr Kavitha Devi",
+    "Environmental Science": "Dr Usha Nandhini",
+    "General Aptitude": "Mr Sarath Kumar",
+    "Biology": "Dr Jayasree",
+    "Philosophy of Engineering": "Mr M Krishna"
+  }
+}]

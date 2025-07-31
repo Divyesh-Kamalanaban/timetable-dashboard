@@ -1,0 +1,28 @@
+[{
+  "_id": "664d4f2ab0d9b14a42ef1234",
+  "name": "Anita Sharma",
+  "email": "anita.sharma@example.com",
+  "phone": "9876543210",
+  "dob": "1985-06-15T00:00:00.000Z",
+  "gender": "Female",
+  "role": "Teacher",
+  "designation": "Senior Lecturer",
+  "assigned_classes": [
+    {
+      "class": "67c0ab10df712df39994db08",
+      "subjects": [
+        "Maths",
+        "PPS"
+      ]
+    },
+    {
+      "class": "664d50e5b0d9b14a42ef6790",
+      "subjects": [
+        "664d5137b0d9b14a42ef9003"
+      ]
+    }
+  ],
+  "createdAt": "2024-10-10T10:30:00.000Z",
+  "updatedAt": "2024-10-12T08:15:00.000Z",
+  "__v": 0
+}]
