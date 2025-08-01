@@ -615,6 +615,193 @@ function SubjectList({ subjects }) {
     </div>
   );
 }
+
+function StaffPopOver({ staff, isLoading }) {
+  const [form, setForm] = useState({
+    name: staff.name || "",
+    email: staff.email || "",
+    phone: staff.phone || "",
+    dob: staff.dob ? staff.dob.substring(0, 10) : "",
+    gender: staff.gender || "",
+    role: staff.role || "",
+    designation: staff.designation || ""
+  });
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  }
+  async function handleSubmit() {
+    console.log("Submitting staff update", { id: staff._id, data: form });
+    try {
+      const response = await putStaff(staff._id, form, isLoading);
+      if (!response) {
+        console.warn("Staff update returned null or undefined. Check backend response.");
+      } else {
+        console.log("Staff update response:", response);
+      }
+      toast.success("Staff updated successfully!");
+    } catch (err) {
+      console.error("Staff update error:", err);
+      toast.error("Failed to update staff.");
+    }
+  }
+  return (
+    <Popover>
+      <PopoverTrigger asChild>
+        <Button variant="secondary" className="p-1">
+          <MdModeEdit />
+        </Button>
+      </PopoverTrigger>
+      <PopoverContent className="w-[320px]">
+        <div className="grid gap-4">
+          <h4 className="font-medium">Edit Staff Details</h4>
+          <div className="grid gap-2">
+            <Label htmlFor="name">Name</Label>
+            <Input id="name" name="name" value={form.name} onChange={handleChange} />
+            <Label htmlFor="email">Email</Label>
+            <Input id="email" name="email" value={form.email} onChange={handleChange} />
+            <Label htmlFor="phone">Phone</Label>
+            <Input id="phone" name="phone" value={form.phone} onChange={handleChange} />
+            <Label htmlFor="dob">DOB</Label>
+            <Input id="dob" name="dob" type="date" value={form.dob} onChange={handleChange} />
+            <Label htmlFor="gender">Gender</Label>
+            <Select value={form.gender} onValueChange={val => setForm(f => ({ ...f, gender: val }))}>
+              <SelectTrigger><SelectValue placeholder="Select Gender" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Male">Male</SelectItem>
+                <SelectItem value="Female">Female</SelectItem>
+                <SelectItem value="Other">Other</SelectItem>
+              </SelectContent>
+            </Select>
+            <Label htmlFor="role">Role</Label>
+            <Select value={form.role} onValueChange={val => setForm(f => ({ ...f, role: val }))}>
+              <SelectTrigger><SelectValue placeholder="Select Role" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="Teacher">Teacher</SelectItem>
+                <SelectItem value="Admin">Admin</SelectItem>
+                <SelectItem value="Staff">Staff</SelectItem>
+              </SelectContent>
+            </Select>
+            <Label htmlFor="designation">Designation</Label>
+            <Input id="designation" name="designation" value={form.designation} onChange={handleChange} />
+            <Button onClick={handleSubmit}>Save</Button>
+          </div>
+        </div>
+      </PopoverContent>
+    </Popover>
+  );
+}
+
+function StaffList({ staffs, isLoading, loading, setstaffs }) {
+  return (
+    <div className="card !h-fit !w-full flex flex-col justify-center items-stretch text-[1.5rem] text-white">
+      <div className="flex flex-row items-center justify-between">
+        <h1 className="!text-[2rem] !m-0 !p-0">Staffs</h1>
+        <AddStaffDialog setstaffs={setstaffs} isLoading={isLoading} />
+      </div>
+      {loading ? <Skeleton /> : (
+        <div className="text-left flex flex-col gap-2">
+          {staffs.map((staff, idx) => (
+            <div key={staff._id || idx} className="flex flex-row items-center justify-between m-2 rounded-lg w-full">
+              <span className="font-bold text-lg">{staff.name}</span>
+              <StaffPopOver staff={staff} isLoading={isLoading} />
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
+// Dialog to add a new staff member
+function AddStaffDialog({ setstaffs, isLoading }) {
+  const [open, setOpen] = useState(false);
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    dob: "",
+    gender: "",
+    role: "",
+    designation: ""
+  });
+  const [loading, setLoading] = useState(false);
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  }
+  async function handleSubmit() {
+    setLoading(true);
+    try {
+      // Basic validation
+      if (!form.name || !form.email || !form.phone || !form.dob || !form.gender || !form.role || !form.designation) {
+        toast.error("Please fill all fields.");
+        setLoading(false);
+        return;
+      }
+      const response = await postStaff(form, isLoading);
+      if (response && response._id) {
+        toast.success("Staff added successfully!");
+        setstaffs((prev) => [...prev, response]);
+        setOpen(false);
+        setForm({ name: "", email: "", phone: "", dob: "", gender: "", role: "", designation: "" });
+      } else if (response && response.error) {
+        toast.error(response.error);
+      } else {
+        toast.error("Failed to add staff. Check backend response.");
+      }
+    } catch (err) {
+      toast.error("Error adding staff.");
+      console.error("Add staff error:", err);
+    }
+    setLoading(false);
+  }
+  return (
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button variant="secondary" className="p-2">Add Staff</Button>
+      </DialogTrigger>
+      <DialogContent className="w-[340px]">
+        <DialogHeader>
+          <DialogTitle>Add New Staff</DialogTitle>
+        </DialogHeader>
+        <div className="grid gap-2">
+          <Label htmlFor="name">Name</Label>
+          <Input id="name" name="name" value={form.name} onChange={handleChange} />
+          <Label htmlFor="email">Email</Label>
+          <Input id="email" name="email" value={form.email} onChange={handleChange} />
+          <Label htmlFor="phone">Phone</Label>
+          <Input id="phone" name="phone" value={form.phone} onChange={handleChange} />
+          <Label htmlFor="dob">DOB</Label>
+          <Input id="dob" name="dob" type="date" value={form.dob} onChange={handleChange} />
+          <Label htmlFor="gender">Gender</Label>
+          <Select value={form.gender} onValueChange={val => setForm(f => ({ ...f, gender: val }))}>
+            <SelectTrigger><SelectValue placeholder="Select Gender" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Male">Male</SelectItem>
+              <SelectItem value="Female">Female</SelectItem>
+              <SelectItem value="Other">Other</SelectItem>
+            </SelectContent>
+          </Select>
+          <Label htmlFor="role">Role</Label>
+          <Select value={form.role} onValueChange={val => setForm(f => ({ ...f, role: val }))}>
+            <SelectTrigger><SelectValue placeholder="Select Role" /></SelectTrigger>
+            <SelectContent>
+              <SelectItem value="Teacher">Teacher</SelectItem>
+              <SelectItem value="Admin">Admin</SelectItem>
+              <SelectItem value="Staff">Staff</SelectItem>
+            </SelectContent>
+          </Select>
+          <Label htmlFor="designation">Designation</Label>
+          <Input id="designation" name="designation" value={form.designation} onChange={handleChange} />
+          <Button onClick={handleSubmit} disabled={loading}>{loading ? "Adding..." : "Add"}</Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+
 function AdminPanel() {
   const {year1, year2, year3, setYear1, setYear2, setYear3, timeslots, settimeslots, staffs, setstaffs, subjects, setSubjects, loading, isLoading, now, setNow} = useContextData();
 
@@ -643,6 +830,10 @@ function AdminPanel() {
           isLoading={isLoading}
           subjects={subjects}
         />
+        <StaffList
+          loading={loading}
+          isLoading={isLoading}
+          staffs={staffs} />
         </div>
         
         <div>
