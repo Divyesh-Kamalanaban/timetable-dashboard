@@ -42,6 +42,7 @@ import {
   putYear3,
   putSubjects
 } from "./modules/putdata";
+import { deleteStaff, deleteYear1, deleteYear2, deleteYear3, deleteTimeslot, deleteSubject } from "./modules/deletedata";
 import { Separator } from "@/components/ui/separator";
 import {
   Select,
@@ -693,6 +694,18 @@ function StaffPopOver({ staff, isLoading }) {
 }
 
 function StaffList({ staffs, isLoading, loading, setstaffs }) {
+  function handleDelete(staffId) {
+    if (!staffId) {
+      console.warn("No staff ID provided for deletion.");
+      return;
+    }
+    console.log("Deleting staff with ID:", staffId);
+    deleteStaff(staffId, isLoading);
+    setstaffs((prev) => prev.filter(staff => staff._id !== staffId));
+    toast.success("Staff deleted successfully!");
+    
+    // Call the delete API or function here
+  }
   return (
     <div className="card !h-fit !w-full flex flex-col justify-center items-stretch text-[1.5rem] text-white">
       <div className="flex flex-row items-center justify-between">
@@ -705,6 +718,7 @@ function StaffList({ staffs, isLoading, loading, setstaffs }) {
             <div key={staff._id || idx} className="flex flex-row items-center justify-between m-2 rounded-lg w-full">
               <span className="font-bold text-lg">{staff.name}</span>
               <StaffPopOver staff={staff} isLoading={isLoading} />
+              <Button variant="destructive" onClick={() => handleDelete(staff._id)}>Delete</Button>
             </div>
           ))}
         </div>
@@ -833,7 +847,8 @@ function AdminPanel() {
         <StaffList
           loading={loading}
           isLoading={isLoading}
-          staffs={staffs} />
+          staffs={staffs}
+          setstaffs={setstaffs} />
         </div>
         
         <div>
