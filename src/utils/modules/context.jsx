@@ -15,12 +15,22 @@ export const ContextDataWrapper = ({children}) => {
       const [timeslots, settimeslots] = useState();
       const [staffs, setstaffs] = useState();
       const [subjects, setSubjects] = useState();
-    
       // State for time.
       const [now, setNow] = useState(new Date());
-
+      // Global semester selection (persistent)
+      const [selectedSemester, setSelectedSemesterState] = useState(() => {
+        return localStorage.getItem('selectedSemester') || 'odd';
+      });
+      function setSelectedSemester(val) {
+        setSelectedSemesterState(val);
+        localStorage.setItem('selectedSemester', val);
+      }
+      function getSemesterKey(yearIdx) {
+        if (selectedSemester === 'odd') return 'sem' + (yearIdx * 2 + 1);
+        else return 'sem' + (yearIdx * 2 + 2);
+      }
       return (
-        <ContextData.Provider value={{year1, year2, year3, setYear1, setYear2, setYear3, timeslots, settimeslots, staffs, setstaffs, subjects, setSubjects, loading, isLoading, now, setNow}}>
+        <ContextData.Provider value={{year1, year2, year3, setYear1, setYear2, setYear3, timeslots, settimeslots, staffs, setstaffs, subjects, setSubjects, loading, isLoading, now, setNow, selectedSemester, setSelectedSemester, getSemesterKey}}>
             {children}
         </ContextData.Provider>
       )

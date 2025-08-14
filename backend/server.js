@@ -28,6 +28,45 @@ connection.once('open', () => {
 });
 
 // Your API routes will go here
+// Link a staff to a subject for a class (year1)
+app.post('/api/year1/link-staff-subject', async (req, res) => {
+  try {
+    const { className, subject, staffId } = req.body;
+    const year1Class = await year1.findOne({ class: className });
+    if (!year1Class) return res.status(404).json({ message: 'Class not found' });
+    year1Class.staffSubjectLinks.push({ subject, staffId, class: className });
+    await year1Class.save();
+    res.json({ message: 'Staff linked to subject successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Get all staff-subject links for a class (year1)
+app.get('/api/year1/staff-subject-links/:className', async (req, res) => {
+  try {
+    const { className } = req.params;
+    const year1Class = await year1.findOne({ class: className });
+    if (!year1Class) return res.status(404).json({ message: 'Class not found' });
+    res.json(year1Class.staffSubjectLinks);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Unlink a staff from a subject for a class (year1)
+app.delete('/api/year1/unlink-staff-subject', async (req, res) => {
+  try {
+    const { className, subject, staffId } = req.body;
+    const year1Class = await year1.findOne({ class: className });
+    if (!year1Class) return res.status(404).json({ message: 'Class not found' });
+    year1Class.staffSubjectLinks = year1Class.staffSubjectLinks.filter(link => !(link.subject === subject && link.staffId.toString() === staffId && link.class === className));
+    await year1Class.save();
+    res.json({ message: 'Staff unlinked from subject successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
 app.get('/api/year1', async (req, res) => {
   try {
     const year1Data = await year1.find(); // lowercase 'year1'
@@ -47,11 +86,91 @@ app.get('/api/year2', async (req, res) => {
   }
 });
 
+// Link a staff to a subject for a class (year2)
+app.post('/api/year2/link-staff-subject', async (req, res) => {
+  try {
+    const { className, subject, staffId } = req.body;
+    const year2Class = await year2.findOne({ class: className });
+    if (!year2Class) return res.status(404).json({ message: 'Class not found' });
+    year2Class.staffSubjectLinks.push({ subject, staffId, class: className });
+    await year2Class.save();
+    res.json({ message: 'Staff linked to subject successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Get all staff-subject links for a class (year2)
+app.get('/api/year2/staff-subject-links/:className', async (req, res) => {
+  try {
+    const { className } = req.params;
+    const year2Class = await year2.findOne({ class: className });
+    if (!year2Class) return res.status(404).json({ message: 'Class not found' });
+    res.json(year2Class.staffSubjectLinks);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Unlink a staff from a subject for a class (year2)
+app.delete('/api/year2/unlink-staff-subject', async (req, res) => {
+  try {
+    const { className, subject, staffId } = req.body;
+    const year2Class = await year2.findOne({ class: className });
+    if (!year2Class) return res.status(404).json({ message: 'Class not found' });
+    year2Class.staffSubjectLinks = year2Class.staffSubjectLinks.filter(link => !(link.subject === subject && link.staffId.toString() === staffId && link.class === className));
+    await year2Class.save();
+    res.json({ message: 'Staff unlinked from subject successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
 //year3
 app.get('/api/year3', async (req, res) => {
   try {
     const year3Data = await year3.find(); 
     res.json(year3Data);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Link a staff to a subject for a class (year3)
+app.post('/api/year3/link-staff-subject', async (req, res) => {
+  try {
+    const { className, subject, staffId } = req.body;
+    const year3Class = await year3.findOne({ class: className });
+    if (!year3Class) return res.status(404).json({ message: 'Class not found' });
+    year3Class.staffSubjectLinks.push({ subject, staffId, class: className });
+    await year3Class.save();
+    res.json({ message: 'Staff linked to subject successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Get all staff-subject links for a class (year3)
+app.get('/api/year3/staff-subject-links/:className', async (req, res) => {
+  try {
+    const { className } = req.params;
+    const year3Class = await year3.findOne({ class: className });
+    if (!year3Class) return res.status(404).json({ message: 'Class not found' });
+    res.json(year3Class.staffSubjectLinks);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+});
+
+// Unlink a staff from a subject for a class (year3)
+app.delete('/api/year3/unlink-staff-subject', async (req, res) => {
+  try {
+    const { className, subject, staffId } = req.body;
+    const year3Class = await year3.findOne({ class: className });
+    if (!year3Class) return res.status(404).json({ message: 'Class not found' });
+    year3Class.staffSubjectLinks = year3Class.staffSubjectLinks.filter(link => !(link.subject === subject && link.staffId.toString() === staffId && link.class === className));
+    await year3Class.save();
+    res.json({ message: 'Staff unlinked from subject successfully' });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }

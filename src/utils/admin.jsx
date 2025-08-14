@@ -8,6 +8,7 @@ import { useContextData } from "./modules/context";
 import { Skeleton } from "@/components/ui/skeleton";
 import { fetchData } from "./modules/fetchdata";
 import { Button } from "@/components/ui/button";
+import { getStaffSubjectLinks, linkStaffToSubject, unlinkStaffFromSubject } from "./modules/staffSubjectLinks";
 import { TiPlus } from "react-icons/ti";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -126,6 +127,51 @@ function ClassList({ loading, year1, year2, year3, isLoading, subjects, setYear1
 }
 // ClassPopOver component is used to edit the class details in the edit popover.
 function ClassPopOver({ cls, yearindex, isLoading }) {
+  const { staffs, subjects, selectedSemester, getSemesterKey } = useContextData();
+  const [staffSubjectLinks, setStaffSubjectLinks] = useState([]);
+  const [selectedSubject, setSelectedSubject] = useState("");
+  const [selectedStaffId, setSelectedStaffId] = useState("");
+  const [linkLoading, setLinkLoading] = useState(false);
+  const yearStr = yearindex === 0 ? "year1" : yearindex === 1 ? "year2" : "year3";
+  const semesterKey = getSemesterKey ? getSemesterKey(yearindex) : 'sem1';
+  const subjectOptions = subjects[yearindex]?.[semesterKey] || [];
+  useEffect(() => {
+    async function fetchLinks() {
+      try {
+        const res = await getStaffSubjectLinks(yearStr, cls.class);
+        setStaffSubjectLinks(res.data);
+      } catch (err) {
+        setStaffSubjectLinks([]);
+      }
+    }
+    fetchLinks();
+  }, [cls.class, yearStr]);
+
+  async function handleLink() {
+    setLinkLoading(true);
+    try {
+      await linkStaffToSubject(yearStr, cls.class, selectedSubject, selectedStaffId);
+      toast.success("Staff linked to subject!");
+      const res = await getStaffSubjectLinks(yearStr, cls.class);
+      setStaffSubjectLinks(res.data);
+    } catch (err) {
+      toast.error("Failed to link staff.");
+    }
+    setLinkLoading(false);
+  }
+
+  async function handleUnlink(subject, staffId) {
+    setLinkLoading(true);
+    try {
+      await unlinkStaffFromSubject(yearStr, cls.class, subject, staffId);
+      toast.success("Staff unlinked from subject!");
+      const res = await getStaffSubjectLinks(yearStr, cls.class);
+      setStaffSubjectLinks(res.data);
+    } catch (err) {
+      toast.error("Failed to unlink staff.");
+    }
+    setLinkLoading(false);
+  }
   const [dayDropDown, setDayDropDown] = useState(null);
   const [periodsList, setPeriodsList] = useState({});
 
@@ -172,6 +218,43 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
               Edit Class {cls.class} Details
             </h4>
           </div>
+            <div className="grid gap-2">
+              <h5 className="font-semibold">Staff-Subject Links</h5>
+              {staffSubjectLinks.length === 0 ? (
+                <p className="text-sm text-muted-foreground">No links yet.</p>
+              ) : (
+                  staffSubjectLinks.map((link, idx) => {
+                    const staff = staffs.find(s => s._id === link.staffId);
+                    return (
+                      <div key={idx} className="flex items-center justify-between text-xs">
+                        <span>{link.subject} → {staff ? staff.name : link.staffId}</span>
+                        <Button size="sm" variant="destructive" onClick={() => handleUnlink(link.subject, link.staffId)} disabled={linkLoading}>Unlink</Button>
+                      </div>
+                    );
+                  })
+              )}
+              <div className="flex flex-col gap-2 mt-2">
+                  <Label htmlFor="subject">Subject</Label>
+                  <Select value={selectedSubject} onValueChange={setSelectedSubject}>
+                    <SelectTrigger><SelectValue placeholder="Select Subject" /></SelectTrigger>
+                    <SelectContent>
+                      {subjectOptions.map((sub, idx) => (
+                        <SelectItem key={idx} value={sub}>{sub}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Label htmlFor="staffId">Staff</Label>
+                  <Select value={selectedStaffId} onValueChange={setSelectedStaffId}>
+                    <SelectTrigger><SelectValue placeholder="Select Staff" /></SelectTrigger>
+                    <SelectContent>
+                      {staffs.map((staff) => (
+                        <SelectItem key={staff._id} value={staff._id}>{staff.name}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                  <Button onClick={handleLink} disabled={linkLoading || !selectedSubject || !selectedStaffId}>Link Staff</Button>
+              </div>
+            </div>
           <div className="grid gap-2">
             <div className="grid grid-cols-3 items-center gap-4">
               <Label htmlFor="Section Name">Section Name</Label>
@@ -556,6 +639,25 @@ function SubjectList({ subjects }) {
 }
 
 function StaffPopOver({ staff, isLoading }) {
+  const { year1, year2, year3, subjects } = useContextData();
+  const [linkYear, setLinkYear] = useState("");
+  const [linkClass, setLinkClass] = useState("");
+  const [linkSubject, setLinkSubject] = useState("");
+  const [linkLoading, setLinkLoading] = useState(false);
+  const [linkedSubjects, setLinkedSubjects] = useState([]);
+  const allYears = [year1, year2, year3];
+  const handleLink = async () => {
+    if (!linkYear || !linkClass || !linkSubject) return;
+    setLinkLoading(true);
+    try {
+      await linkStaffToSubject(linkYear, linkClass, linkSubject, staff._id);
+      setLinkedSubjects([...linkedSubjects, { year: linkYear, class: linkClass, subject: linkSubject }]);
+      toast.success("Linked!");
+    } catch (err) {
+      toast.error("Failed to link.");
+    }
+    setLinkLoading(false);
+  };
   const [form, setForm] = useState({
     name: staff.name || "",
     email: staff.email || "",
@@ -596,6 +698,42 @@ function StaffPopOver({ staff, isLoading }) {
         <div className="grid gap-4">
           <h4 className="font-medium">Edit Staff Details</h4>
           <div className="grid gap-2">
+              <h4 className="font-semibold">Link Staff to Subject/Class</h4>
+              <Label>Year</Label>
+              <Select value={linkYear} onValueChange={setLinkYear}>
+                <SelectTrigger><SelectValue placeholder="Select Year" /></SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="year1">Year 1</SelectItem>
+                  <SelectItem value="year2">Year 2</SelectItem>
+                  <SelectItem value="year3">Year 3</SelectItem>
+                </SelectContent>
+              </Select>
+              <Label>Class</Label>
+              <Select value={linkClass} onValueChange={setLinkClass}>
+                <SelectTrigger><SelectValue placeholder="Select Class" /></SelectTrigger>
+                <SelectContent>
+                  {linkYear && allYears[{year1:'0',year2:'1',year3:'2'}[linkYear]].map(cls => (
+                    <SelectItem key={cls.class} value={cls.class}>{cls.class}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Label>Subject</Label>
+              <Select value={linkSubject} onValueChange={setLinkSubject}>
+                <SelectTrigger><SelectValue placeholder="Select Subject" /></SelectTrigger>
+                <SelectContent>
+                  {linkYear && subjects[{year1:'0',year2:'1',year3:'2'}[linkYear]].sem1.map(sub => (
+                    <SelectItem key={sub} value={sub}>{sub}</SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+              <Button onClick={handleLink} disabled={linkLoading}>Link</Button>
+              <div className="mt-2">
+                {linkedSubjects.map((link, idx) => (
+                  <div key={idx} className="flex items-center gap-2 text-xs">
+                    <span>{link.year} - {link.class} - {link.subject}</span>
+                  </div>
+                ))}
+              </div>
             <Label htmlFor="name">Name</Label>
             <Input id="name" name="name" value={form.name} onChange={handleChange} />
             <Label htmlFor="email">Email</Label>
@@ -633,6 +771,27 @@ function StaffPopOver({ staff, isLoading }) {
 }
 
 function StaffList({ staffs, isLoading, loading, setstaffs }) {
+  const { year1, year2, year3 } = useContextData();
+  // Helper to get all links for a staff
+  function getStaffLinks(staffId) {
+    const allLinks = [];
+    [year1, year2, year3].forEach((year, yIdx) => {
+      year.forEach(cls => {
+        if (Array.isArray(cls.staffSubjectLinks)) {
+          cls.staffSubjectLinks.forEach(link => {
+            if (link.staffId === staffId) {
+              allLinks.push({
+                year: yIdx + 1,
+                class: cls.class,
+                subject: link.subject
+              });
+            }
+          });
+        }
+      });
+    });
+    return allLinks;
+  }
   function handleDelete(staffId) {
     if (!staffId) {
       console.warn("No staff ID provided for deletion.");
@@ -655,7 +814,21 @@ function StaffList({ staffs, isLoading, loading, setstaffs }) {
         <div className="text-left flex flex-col gap-2">
           {staffs.map((staff, idx) => (
             <div key={staff._id || idx} className="flex flex-row items-center justify-between m-2 rounded-lg w-full">
-              <span className="font-bold text-lg">{staff.name}</span>
+                <div className="flex flex-col">
+                  <span className="font-bold text-lg">{staff.name}</span>
+                  {/* Linked subjects/classes */}
+                  <div className="text-xs text-gray-300 mt-1">
+                    {getStaffLinks(staff._id).length === 0 ? (
+                      <span>No subjects linked.</span>
+                    ) : (
+                      getStaffLinks(staff._id).map((link, lidx) => (
+                        <div key={lidx}>
+                          Year {link.year}, Class {link.class}: {link.subject}
+                        </div>
+                      ))
+                    )}
+                  </div>
+                </div>
               <div className="flex flex-row items-center gap-2">
               <StaffPopOver staff={staff} isLoading={isLoading} />
               <Button variant="destructive" onClick={() => handleDelete(staff._id)}>Delete
@@ -672,6 +845,25 @@ function StaffList({ staffs, isLoading, loading, setstaffs }) {
 
 // Dialog to add a new staff member
 function AddStaffDialog({ setstaffs, isLoading }) {
+  const { year1, year2, year3, subjects } = useContextData();
+  const [linkYear, setLinkYear] = useState("");
+  const [linkClass, setLinkClass] = useState("");
+  const [linkSubject, setLinkSubject] = useState("");
+  const [linkLoading, setLinkLoading] = useState(false);
+  const [linkedSubjects, setLinkedSubjects] = useState([]);
+  const allYears = [year1, year2, year3];
+  const handleLink = async () => {
+    if (!linkYear || !linkClass || !linkSubject) return;
+    setLinkLoading(true);
+    try {
+      await linkStaffToSubject(linkYear, linkClass, linkSubject, form._id);
+      setLinkedSubjects([...linkedSubjects, { year: linkYear, class: linkClass, subject: linkSubject }]);
+      toast.success("Linked!");
+    } catch (err) {
+      toast.error("Failed to link.");
+    }
+    setLinkLoading(false);
+  };
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState({
     name: "",
@@ -723,6 +915,42 @@ function AddStaffDialog({ setstaffs, isLoading }) {
           <DialogTitle>Add New Staff</DialogTitle>
         </DialogHeader>
         <div className="grid gap-2">
+            <h4 className="font-semibold">Link Staff to Subject/Class</h4>
+            <Label>Year</Label>
+            <Select value={linkYear} onValueChange={setLinkYear}>
+              <SelectTrigger><SelectValue placeholder="Select Year" /></SelectTrigger>
+              <SelectContent>
+                <SelectItem value="year1">Year 1</SelectItem>
+                <SelectItem value="year2">Year 2</SelectItem>
+                <SelectItem value="year3">Year 3</SelectItem>
+              </SelectContent>
+            </Select>
+            <Label>Class</Label>
+            <Select value={linkClass} onValueChange={setLinkClass}>
+              <SelectTrigger><SelectValue placeholder="Select Class" /></SelectTrigger>
+              <SelectContent>
+                {linkYear && allYears[{year1:'0',year2:'1',year3:'2'}[linkYear]].map(cls => (
+                  <SelectItem key={cls.class} value={cls.class}>{cls.class}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Label>Subject</Label>
+            <Select value={linkSubject} onValueChange={setLinkSubject}>
+              <SelectTrigger><SelectValue placeholder="Select Subject" /></SelectTrigger>
+              <SelectContent>
+                {linkYear && subjects[{year1:'0',year2:'1',year3:'2'}[linkYear]].sem1.map(sub => (
+                  <SelectItem key={sub} value={sub}>{sub}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Button onClick={handleLink} disabled={linkLoading || !form._id}>Link</Button>
+            <div className="mt-2">
+              {linkedSubjects.map((link, idx) => (
+                <div key={idx} className="flex items-center gap-2 text-xs">
+                  <span>{link.year} - {link.class} - {link.subject}</span>
+                </div>
+              ))}
+            </div>
           <Label htmlFor="name">Name</Label>
           <Input id="name" name="name" value={form.name} onChange={handleChange} />
           <Label htmlFor="email">Email</Label>
@@ -760,7 +988,7 @@ function AddStaffDialog({ setstaffs, isLoading }) {
 
 
 function AdminPanel() {
-  const {year1, year2, year3, setYear1, setYear2, setYear3, timeslots, settimeslots, staffs, setstaffs, subjects, setSubjects, loading, isLoading, now, setNow} = useContextData();
+  const {year1, year2, year3, setYear1, setYear2, setYear3, timeslots, settimeslots, staffs, setstaffs, subjects, setSubjects, loading, isLoading, now, setNow, selectedSemester, setSelectedSemester} = useContextData();
 
   // useEffect to fetch data when the component loads.
   useEffect(() => {
@@ -778,6 +1006,18 @@ function AdminPanel() {
   return (
     <>
       <div className="bg-slate-950 h-max w-screen justify-center items-center flex">
+        {/* Global Semester Dropdown */}
+        <div className="absolute top-2 right-2 z-50">
+          <Select value={selectedSemester} onValueChange={setSelectedSemester}>
+            <SelectTrigger className="w-[120px]">
+              <SelectValue placeholder="Semester" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="odd">Odd Semester</SelectItem>
+              <SelectItem value="even">Even Semester</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
         <div className="w-full m-2 p-2 flex flex-col items-center justify-items-end h-full">
         <ClassList
           loading={loading}
