@@ -53,8 +53,9 @@ import {
 } from "@/components/ui/select";
 import { Toaster } from "@/components/ui/sonner";
 import { toast } from "sonner";
+import { PlusCircleIcon, Trash } from "lucide-react";
 
-function ClassList({ loading, year1, year2, year3, isLoading, subjects }) {
+function ClassList({ loading, year1, year2, year3, isLoading, subjects, setYear1, setYear2, setYear3, setsubjects }) {
   return (
     <>
       <div className="card !h-fit !w-full flex flex-col justify-center items-stretch text-[1.5rem] text-white">
@@ -88,99 +89,35 @@ function ClassList({ loading, year1, year2, year3, isLoading, subjects }) {
                     >
                       {yearindex + 1 + cls.class}
                     </p>
+                    <div>
                     <ClassPopOver cls={cls} isLoading={isLoading} yearindex={yearindex}></ClassPopOver>
+                    <Button
+                      variant="destructive" onClick={() => {
+                        if (yearindex + 1 == 1) {
+                          deleteYear1(cls._id, isLoading);
+                        setYear1((prev) => prev.filter((c) => c._id !== cls._id));}
+                        else if (yearindex + 1 == 2) 
+                          deleteYear2(cls._id, isLoading);
+                        else if (yearindex + 1 == 3) 
+                          deleteYear3(cls._id, isLoading);
+                        else 
+                          console.error("Invalid year index for deletion:", yearindex + 1);
+                        
+                        toast.success("Class deleted successfully!");
+                        if(yearindex + 1 == 1) {
+                          setYear1((prev) => prev.filter((c) => c._id !== cls._id));
+                        } else if(yearindex + 1 == 2) {
+                          setYear2((prev) => prev.filter((c) => c._id !== cls._id));
+                        } else if(yearindex + 1 == 3) {
+                          setYear3((prev) => prev.filter((c) => c._id !== cls._id));
+                        }
+                      }}>Delete <Trash className="h-4 w-4" /></Button>
+                    </div>
                   </div>
                 ))}
               </div>
             ))}
-            {/*Button is Outside the Map.*/}
-            {/* <Button
-              onClick={() => {
-                postYear1(
-                  {
-                    class: "E",
-                    timetable: [
-                      {
-                        day: "Day 1",
-                        period1: "Chemistry Lab",
-                        period2: "Chemistry Lab",
-                        period3: "Communicative English",
-                        period4: "Programming for Problem Solving lab",
-                        period5: "Advanced Calculus and Complex Analysis",
-                        period6: "Advanced Calculus and Complex Analysis",
-                        period7: "Students mentoring",
-                        period8: "unallocated",
-                      },
-                      {
-                        day: "Day 2",
-                        period1: "PPS/PCB Lab",
-                        period2: "PPS/PCB Lab",
-                        period3: "Advanced Calculus and Complex Analysis",
-                        period4: "Programming for Problem Solving lab",
-                        period5: "Chemistry Lab",
-                        period6: "Chemistry",
-                        period7: "Engineering Graphics and Design",
-                        period8: "unallocated",
-                      },
-                      {
-                        day: "Day 3",
-                        period1: "Advanced Calculus and Complex Analysis",
-                        period2: "Advanced Calculus and Complex Analysis",
-                        period3: "LIB",
-                        period4: "Biology",
-                        period5: "Electronic System and PCB design",
-                        period6: "Communicative English",
-                        period7: "Environmental Science",
-                        period8: "Seminar",
-                      },
-                      {
-                        day: "Day 4",
-                        period1: "Constitution of India",
-                        period2: "Electronic System and PCB design",
-                        period3: "Advanced Calculus and Complex Analysis",
-                        period4: "Biology",
-                        period5: "PPS/PCB Lab",
-                        period6: "PPS/PCB Lab",
-                        period7: "Chemistry Lab",
-                        period8: "Seminar",
-                      },
-                      {
-                        day: "Day 5",
-                        period1: "Chemistry Lab",
-                        period2: "Counselling",
-                        period3: "General Aptitude",
-                        period4: "Lunch",
-                        period5: "Communicative English",
-                        period6: "Programming for Problem Solving lab",
-                        period7: "Project Discussion",
-                        period8: "unallocated",
-                      },
-                    ],
-                    staffs: {
-                      "Communicative English": "Ms K Srividhya Lakshmi",
-                      "Advanced Calculus and Complex Analysis": "Dr B Srirekha",
-                      Chemistry: "Dr P Arthi",
-                      "Chemistry Lab": "Dr P Arthi",
-                      "Engineering Graphics and Design": "Dr N Parthipan",
-                      "Electronic System and PCB design":
-                        "Dr Christeena Joseph",
-                      "Electronic System and PCB design lab":
-                        "Dr Christeena Joseph",
-                      "Programming for Problem Solving":
-                        "Dr N Sree Rathna Lakshmi",
-                      "Programming for Problem Solving lab": "Dr Aravindhan",
-                      "Environmental Science": "Dr K Sambath Kumar",
-                      "General Aptitude": "Mr Iyappan",
-                      Biology: "Dr S Vasthi Gana Rani",
-                      "Constitution of India": "Dr Diana",
-                    },
-                  },
-                  isLoading
-                );
-              }}
-            >
-              Add sample class year 1
-            </Button> */}
+            
           </div>
         )}
       </div>
@@ -223,7 +160,8 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="secondary" className=" p-1">
+        <Button variant="secondary" className=" p-3 m-1">
+          Edit
           <MdModeEdit />
         </Button>
       </PopoverTrigger>
@@ -649,7 +587,8 @@ function StaffPopOver({ staff, isLoading }) {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <Button variant="secondary" className="p-1">
+        <Button variant="secondary" className="p-3 m-1">
+          Edit 
           <MdModeEdit />
         </Button>
       </PopoverTrigger>
@@ -717,8 +656,12 @@ function StaffList({ staffs, isLoading, loading, setstaffs }) {
           {staffs.map((staff, idx) => (
             <div key={staff._id || idx} className="flex flex-row items-center justify-between m-2 rounded-lg w-full">
               <span className="font-bold text-lg">{staff.name}</span>
+              <div className="flex flex-row items-center gap-2">
               <StaffPopOver staff={staff} isLoading={isLoading} />
-              <Button variant="destructive" onClick={() => handleDelete(staff._id)}>Delete</Button>
+              <Button variant="destructive" onClick={() => handleDelete(staff._id)}>Delete
+                <Trash></Trash>
+              </Button>
+              </div>
             </div>
           ))}
         </div>
@@ -773,7 +716,7 @@ function AddStaffDialog({ setstaffs, isLoading }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="secondary" className="p-2">Add Staff</Button>
+        <Button variant="secondary" className="p-2">Add Staff <PlusCircleIcon /></Button>
       </DialogTrigger>
       <DialogContent className="w-[340px]">
         <DialogHeader>
@@ -843,6 +786,9 @@ function AdminPanel() {
           year3={year3}
           isLoading={isLoading}
           subjects={subjects}
+          setYear1={setYear1}
+          setYear2={setYear2}
+          setYear3={setYear3}
         />
         <StaffList
           loading={loading}
