@@ -238,9 +238,16 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
                   <Select value={selectedSubject} onValueChange={setSelectedSubject}>
                     <SelectTrigger><SelectValue placeholder="Select Subject" /></SelectTrigger>
                     <SelectContent>
-                      {subjectOptions.map((sub, idx) => (
-                        <SelectItem key={idx} value={sub}>{sub}</SelectItem>
-                      ))}
+                      {/* Debug logging for ClassPopOver */}
+                      {(() => {
+                        console.log('ClassPopOver debug:', { subjects, yearindex, semesterKey, subjectOptions });
+                        if (subjectOptions.length === 0) {
+                          return <div className="text-red-500 text-xs p-2">No subjects found for this year/semester.</div>;
+                        }
+                        return subjectOptions.map((sub, idx) => (
+                          <SelectItem key={idx} value={sub}>{sub}</SelectItem>
+                        ));
+                      })()}
                     </SelectContent>
                   </Select>
                   <Label htmlFor="staffId">Staff</Label>
@@ -260,8 +267,10 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
               <Label htmlFor="Section Name">Section Name</Label>
               <Input
                 id="section-name"
-                defaultValue={`${cls.class}`}
+                value={cls.section ? cls.section : (cls.class ? cls.class : "")}
                 className="col-span-2 h-8"
+                readOnly
+                placeholder="Section"
               />
             </div>
             {/*Dropdown menu using shadCN select component; uses dayDropDown for state.*/}
@@ -269,7 +278,7 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
               <div className="grid grid-cols-3 items-center gap-4">
                 <Label htmlFor={`day`}>Day</Label>
                 <Select
-                  value={dayDropDown}
+                  value={dayDropDown || (cls.day ? String(cls.day) : "")}
                   onValueChange={(value) => setDayDropDown(value)}
                 >
                   <SelectTrigger>
@@ -287,34 +296,40 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
               {dayDropDown == null ? (
                 <p>Choose a day.</p>
               ) : (
-                Object.entries(cls.timetable[dayDropDown - 1]).map(
-                  (period, index) =>
-                    period[0].includes("period") ? (
-                      <div
-                        key={index}
-                        className="grid grid-cols-3 items-center gap-4"
-                      >
-                        {console.log("rerendering")}
-                        <Label htmlFor={period[0]}>
-                          {period[0].replace('period', 'Period ')}
-                        </Label>
-                        <Input
-                          id={period[0]}
-                          value={periodsList[period[0]] ?? period[1]}
-                          onChange={(e) => {
-                            e.preventDefault();
-                            setPeriodsList((prev) => ({
-                              ...prev,
-                              ['day']: `Day ${dayDropDown}`,
-                              [period[0]]: e.target.value,
-                            }));
-                            console.log(periodsList);
-                          }}
-                          className="col-span-2 h-8"
-                        />
-                      </div>
-                    ) : null
-                )
+                Array.isArray(cls.timetable) &&
+                cls.timetable[dayDropDown - 1] &&
+                typeof cls.timetable[dayDropDown - 1] === 'object' ?
+                  Object.entries(cls.timetable[dayDropDown - 1]).map(
+                    (period, index) =>
+                      period[0].includes("period") ? (
+                        <div
+                          key={index}
+                          className="grid grid-cols-3 items-center gap-4"
+                        >
+                          <Label htmlFor={period[0]}>
+                            {period[0].replace('period', 'Period ')}
+                          </Label>
+                          <Select
+                            value={periodsList[period[0]] ?? period[1]}
+                            onValueChange={(value) => {
+                              setPeriodsList((prev) => ({
+                                ...prev,
+                                ['day']: `Day ${dayDropDown}`,
+                                [period[0]]: value,
+                              }));
+                            }}
+                          >
+                            <SelectTrigger><SelectValue placeholder="Select Subject" /></SelectTrigger>
+                            <SelectContent>
+                              {subjectOptions.map((sub, idx) => (
+                                <SelectItem key={idx} value={sub}>{sub}</SelectItem>
+                              ))}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      ) : null
+                  )
+                : <p className="text-red-500 text-xs">No timetable data for this day.</p>
               )}
               <Button
                 onClick={() => {
@@ -336,6 +351,7 @@ function ClassPopOver({ cls, yearindex, isLoading }) {
 
 function AddClassDialog({ year1, year2, year3, subjects }) {
   const years = [year1, year2, year3];
+  const { selectedSemester, getSemesterKey } = useContextData();
   const [yearDropDown, setYearDropDown] = useState(null);
   const [dayDropDown, setDayDropDown] = useState(null);
   const [sectionName, setSectionName] = useState("");
@@ -385,7 +401,10 @@ function AddClassDialog({ year1, year2, year3, subjects }) {
 
           <div className="grid grid-cols-3 items-center gap-4">
             <Label htmlFor="day">Day</Label>
-            <Select value={dayDropDown} onValueChange={(value) => setDayDropDown(value)}>
+            <Select value={dayDropDown} onValueChange={(value) => {
+              setDayDropDown(value);
+              setPeriodDropDown({}); // Reset period selections when day changes
+            }}>
               <SelectTrigger>
                 <SelectValue placeholder="Select Day" />
               </SelectTrigger>
@@ -420,13 +439,19 @@ function AddClassDialog({ year1, year2, year3, subjects }) {
                 <SelectValue placeholder="Select Day" />
               </SelectTrigger>
               <SelectContent className="text-black">
-                {Object.entries(subjects[yearDropDown]['sem1']).map(([subkey, subval], subind)=>{
-                  return(
+                {/* Dynamic semester key selection for subject dropdown */}
+                {(() => {
+                  const semesterKey = getSemesterKey ? getSemesterKey(Number(yearDropDown)) : 'sem1';
+                  console.log('AddClassDialog debug:', { subjects, yearDropDown, semesterKey });
+                  if (!subjects[yearDropDown] || !subjects[yearDropDown][semesterKey]) {
+                    return <div className="text-red-500 text-xs p-2">No subjects found for this year/semester.</div>;
+                  }
+                  return Object.entries(subjects[yearDropDown][semesterKey]).map(([subkey, subval], subind) => (
                     <SelectItem key={subind} value={`${subval}`}>
                       {subval}
                     </SelectItem>
-                  )
-                })}
+                  ));
+                })()}
               </SelectContent>
             </Select>
           </div>
@@ -443,6 +468,60 @@ function AddClassDialog({ year1, year2, year3, subjects }) {
             //   ) : null
             // )
           )}
+        <div className="flex justify-end mt-6">
+          <Button variant="primary" onClick={async () => {
+            // Build timetable array for all 5 days, with only the selected day filled
+            const timetable = Array(5).fill(null).map((_, idx) => {
+              if (String(idx + 1) === dayDropDown) {
+                return {
+                  day: String(idx + 1),
+                  ...periodDropDown
+                };
+              } else {
+                return {
+                  day: String(idx + 1),
+                  period1: "",
+                  period2: "",
+                  period3: "",
+                  period4: "",
+                  period5: "",
+                  period6: "",
+                  period7: "",
+                  period8: ""
+                };
+              }
+            });
+            const classData = {
+              class: sectionName,
+              timetable,
+              staffSubjectLinks: [],
+            };
+            try {
+              let res;
+              if (yearDropDown === "0") {
+                res = await postYear1(classData, () => {});
+                toast.success("Class added to Year 1!");
+              } else if (yearDropDown === "1") {
+                res = await postYear2(classData, () => {});
+                toast.success("Class added to Year 2!");
+              } else if (yearDropDown === "2") {
+                res = await postYear3(classData, () => {});
+                toast.success("Class added to Year 3!");
+              } else {
+                toast.error("Invalid year selected.");
+                return;
+              }
+              // Optionally reset form or close dialog here
+              // You may want to update year1/year2/year3 state after adding
+            } catch (err) {
+              toast.error("Failed to add class.");
+            }
+          }} disabled={
+            !sectionName || yearDropDown === null || dayDropDown === null || Object.keys(periodDropDown).length < 8
+          }>
+            Save Class
+          </Button>
+        </div>
         </div>
       </DialogContent>
     </Dialog>
