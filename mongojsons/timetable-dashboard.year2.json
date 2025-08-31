@@ -1,136 +1,77 @@
 [{
   "_id": {
-    "$oid": "67c0a125df712df39994daf2"
+    "$oid": "67c0a18ddf712df39994daf4"
   },
   "class": "A",
   "timetable": [
     {
-      "day": "monday",
-      "period1": "control systems",
-      "period2": "Artifical Intelligence",
-      "period3": "Probability and stochastic Process",
-      "period4": "signal processing",
-      "period5": "Universal Human Values",
-      "period6": "Student Mentoring",
-      "period7": "Student Mentoring",
-      "period8": "Student Mentoring"
-    },
-    {
-      "day": "Tuesday",
-      "period1": "Probability and stochastic Process",
-      "period2": "Universal Human values",
-      "period3": "control systems",
-      "period4": "Analog and Linear circuits",
-      "period5": "Signal Processing",
-      "period6": "Counselling",
-      "period7": "Counselling",
-      "period8": "Counselling"
-    },
-    {
-      "day": "Wednesday",
-      "period1": "Analog and Linear circuits lab",
-      "period2": "Analog and linear circuits lab",
-      "period3": "Analog and linear circuits lab",
-      "period4": "Analog and linear circuits lab",
-      "period5": "unallocated",
-      "period6": "Probability and stochastic Process",
-      "period7": "Control systems",
-      "period8": "Lib"
-    },
-    {
-      "day": "Thursday",
-      "period1": "Analog and linear electronic circuits",
-      "period2": "Probability and stochastic Process",
-      "period3": "Artifical Intelligence",
-      "period4": "Universal Human Values",
-      "period5": "Project discussion",
-      "period6": "Project discussion",
-      "period7": "Project discussion",
-      "period8": "Project discussion"
-    },
-    {
-      "day": "Friday",
-      "period1": "Artifical Intelligence",
-      "period2": "Analog and linear electronic circuits",
-      "period3": "Critical and Creative Thinking skills",
-      "period4": "Critical and Creative Thinking skills",
-      "period5": "Social Engineering",
-      "period6": "Social Engineering",
-      "period7": "Signal Processing",
-      "period8": "Seminar"
-    }
-  ],
-  "staffs": {
-    "control systems": "Dr Kapileshwar",
-    "Artifical Intelligence": "Dr R Vani",
-    "Probability and stochastic Process": "Mr M kannan",
-    "Analog and linear electronic circuits": "Dr Reji",
-    "Signal Processing": "Dr Ramya G",
-    "Social Engineering": "Mrs Vijayalakshmi",
-    "Critical and Creative Thinking skills": "Mrs. Priyanga Lawrence",
-    "Analog and Linear circuits lab": "Mrs. Arthi Elaveni and Mr Vinothkumar G"
-  }
-},
-{
-  "_id": {
-    "$oid": "67c0a18ddf712df39994daf4"
-  },
-  "class": "B",
-  "timetable": [
-    {
       "day": "Day 1",
-      "period1": "Social Engineering",
-      "period2": "Social Engineering",
-      "period3": "Probability and Stochastic Process",
-      "period4": "Artificial Intelligence",
-      "period5": "Analog and Linear Electronic Circuits",
-      "period6": "Signal Processing",
-      "period7": "unallocated",
-      "period8": "Seminar"
+      "period1": "Devices and Digital IC Laboratory",
+      "period2": "Devices and Digital IC Laboratory",
+      "period3": "Solid State Devices",
+      "period4": "Transforms and Boundary Value Problems",
+      "period5": "Professional Ethics",
+      "period6": "Devices and Digital IC Laboratory",
+      "period7": "Unallocated",
+      "period8": "Unallocated",
+      "_id": {
+        "$oid": "68adcf5137d47ce6fbfec2c2"
+      }
     },
     {
       "day": "Day 2",
-      "period1": "Analog and Linear Electronic Circuits Lab",
-      "period2": "unallocated",
-      "period3": "Analog and Linear Electronic Circuits Lab",
-      "period4": "Control Systems",
-      "period5": "Probability and Stochastic Process",
-      "period6": "Analog and Linear Electronic Circuits",
-      "period7": "unallocated",
-      "period8": "LIB"
+      "period1": "Electromagnetic Theory and Interference",
+      "period2": "Computer Organization and Architecture",
+      "period3": "Solid State Devices",
+      "period4": "Transforms and Boundary Value Problems",
+      "period5": "Design Thinking and Methodology",
+      "period6": "Design Thinking and Methodology",
+      "period7": "Devices and Digital IC Laboratory",
+      "period8": "Unallocated",
+      "_id": {
+        "$oid": "68adcf5137d47ce6fbfec2c3"
+      }
     },
     {
       "day": "Day 3",
-      "period1": "Signal Processing",
-      "period2": "Control Systems",
-      "period3": "Critical and Creative Thinking Skills",
-      "period4": "Critical and Creative Thinking Skills",
-      "period5": "unallocated",
-      "period6": "Universal Human Values",
-      "period7": "unallocated",
-      "period8": "Counselling"
+      "period1": "Transforms and Boundary Value Problems",
+      "period2": "Digital Logic Design",
+      "period3": "Computer Organization and Architecture",
+      "period4": "Electromagnetic Theory and Interference",
+      "period5": "Unallocated",
+      "period6": "Devices and Digital IC Laboratory",
+      "period7": "Devices and Digital IC Laboratory",
+      "period8": "Unallocated",
+      "_id": {
+        "$oid": "68adcf5137d47ce6fbfec2c4"
+      }
     },
     {
       "day": "Day 4",
-      "period1": "Probability and Stochastic Process",
-      "period2": "Universal Human Values",
-      "period3": "Signal Processing",
-      "period4": "Artificial Intelligence",
-      "period5": "unallocated",
-      "period6": "unallocated",
-      "period7": "unallocated",
-      "period8": "Project Discussion"
+      "period1": "Computer Organization and Architecture",
+      "period2": "Digital Logic Design",
+      "period3": "Verbal Reasoning",
+      "period4": "Verbal Reasoning",
+      "period5": "Computer Organization and Architecture",
+      "period6": "Unallocated",
+      "period7": "Unallocated",
+      "period8": "Unallocated",
+      "_id": {
+        "$oid": "68adcf5137d47ce6fbfec2c5"
+      }
     },
     {
-      "day": "Day 5",
-      "period1": "Analog and Linear Electronic Circuits",
-      "period2": "Control Systems",
-      "period3": "Universal Human Values",
-      "period4": "Probability and Stochastic Process",
-      "period5": "Lunch",
-      "period6": "Artificial Intelligence",
-      "period7": "unallocated",
-      "period8": "Students Mentoring"
+      "period1": "Electromagnetic Theory and Interference",
+      "period2": "Unallocated",
+      "period3": "Unallocated",
+      "period4": "Solid State Devices",
+      "period5": "Transforms and Boundary Value Problems",
+      "period6": "Solid State Devices",
+      "period7": "Unallocated",
+      "period8": "Unallocated",
+      "_id": {
+        "$oid": "68adcf5137d47ce6fbfec2c6"
+      }
     }
   ],
   "staffs": {
@@ -143,79 +84,86 @@
     "Social Engineering": "Mrs. Vijayalakshmi",
     "Critical and Creative Thinking Skills": "Mrs. Priyanga Lawrence",
     "Universal Human Values": "Dr B Roopa"
-  }
+  },
+  "staffSubjectLinks": []
 },
 {
   "_id": {
-    "$oid": "67c0a244df712df39994daf6"
+    "$oid": "68add03c37d47ce6fbfec356"
   },
-  "class": "C",
+  "class": "B",
   "timetable": [
     {
       "day": "Day 1",
-      "period1": "Analog and Linear Electronic Circuits",
-      "period2": "Probability and Stochastic Process",
-      "period3": "Social Engineering",
-      "period4": "Social Engineering",
-      "period5": "Critical and Creative Thinking Skills",
-      "period6": "Critical and Creative Thinking Skills",
-      "period7": "Artificial Intelligence",
-      "period8": "LIB"
+      "period1": "Solid State Devices",
+      "period2": "Unallocated",
+      "period3": "Computer Organization and Architecture",
+      "period4": "Digital Logic Design",
+      "period5": "Transforms and Boundary Value Problems",
+      "period6": "Computer Organization and Architecture",
+      "period7": "Verbal Reasoning",
+      "period8": "Verbal Reasoning",
+      "_id": {
+        "$oid": "68addae537d47ce6fbfec46e"
+      }
     },
     {
       "day": "Day 2",
-      "period1": "Artificial Intelligence",
-      "period2": "Universal Human Values",
-      "period3": "Control Systems",
-      "period4": "Signal Processing",
-      "period5": "Probability and Stochastic Process",
-      "period6": "Students Mentoring",
-      "period7": "unallocated",
-      "period8": "unallocated"
+      "period1": "Devices and Digital IC Laboratory",
+      "period2": "Devices and Digital IC Laboratory",
+      "period3": "Transforms and Boundary Value Problems",
+      "period4": "Digital Logic Design",
+      "period5": "Electromagnetic Theory and Interference",
+      "period6": "Computer Organization and Architecture",
+      "period7": "Unallocated",
+      "period8": "Unallocated",
+      "_id": {
+        "$oid": "68addae537d47ce6fbfec46f"
+      }
     },
     {
       "day": "Day 3",
-      "period1": "Probability and Stochastic Process",
-      "period2": "Control Systems",
-      "period3": "Universal Human Values",
-      "period4": "Analog and Linear Electronic Circuits",
-      "period5": "unallocated",
-      "period6": "unallocated",
-      "period7": "Project Discussion",
-      "period8": "unallocated"
+      "period1": "Design Thinking and Methodology",
+      "period2": "Design Thinking and Methodology",
+      "period3": "Design Thinking and Methodology",
+      "period4": "Digital Logic Design",
+      "period5": "Devices and Digital IC Laboratory",
+      "period6": "Devices and Digital IC Laboratory",
+      "period7": "Unallocated",
+      "period8": "Unallocated",
+      "_id": {
+        "$oid": "68ae8d78a8d194e2cb1ce848"
+      }
     },
     {
       "day": "Day 4",
-      "period1": "Analog and Linear Electronic Circuits Lab",
-      "period2": "unallocated",
-      "period3": "Analog and Linear Electronic Circuits Lab",
-      "period4": "Universal Human Values",
-      "period5": "Signal Processing",
-      "period6": "Seminar",
-      "period7": "unallocated",
-      "period8": "unallocated"
+      "period1": "Transforms and Boundary Value Problems",
+      "period2": "Electromagnetic Theory and Interference",
+      "period3": "Solid State Devices",
+      "period4": "Computer Organization and Architecture",
+      "period5": "Devices and Digital IC Laboratory",
+      "period6": "Devices and Digital IC Laboratory",
+      "period7": "Devices and Digital IC Laboratory",
+      "period8": "",
+      "_id": {
+        "$oid": "68addaa737d47ce6fbfec40e"
+      }
     },
     {
       "day": "Day 5",
-      "period1": "Signal Processing",
-      "period2": "Control Systems",
-      "period3": "Artificial Intelligence",
-      "period4": "Probability and Stochastic Process",
-      "period5": "Lunch",
-      "period6": "Analog and Linear Electronic Circuits",
-      "period7": "unallocated",
-      "period8": "Counselling"
+      "period1": "Computer Organization and Architecture",
+      "period2": "Computer Organization and Architecture",
+      "period3": "Solid State Devices",
+      "period4": "Counselling",
+      "period5": "Project Discussion",
+      "period6": "",
+      "period7": "",
+      "period8": "",
+      "_id": {
+        "$oid": "68addaa737d47ce6fbfec40f"
+      }
     }
   ],
-  "staffs": {
-    "Probability and Stochastic Process": "Mr M Kannan",
-    "Analog and Linear Electronic Circuits": "Dr Latha Manju",
-    "Signal Processing": "Mr Vinoth Kumar",
-    "Analog and Linear Electronic Circuits Lab": "Dr Padmavathi B, Dr Kapileswar N",
-    "Artificial Intelligence": "Dr Arthi R",
-    "Control Systems": "Dr G Ramya",
-    "Social Engineering": "Mrs. Vijayalakshmi",
-    "Critical and Creative Thinking Skills": "Mrs. Priyanga Lawernce",
-    "Universal Human Values": "Dr T Yogashanthi"
-  }
+  "staffSubjectLinks": [],
+  "__v": 0
 }]

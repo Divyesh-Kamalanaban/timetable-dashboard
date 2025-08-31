@@ -19,6 +19,73 @@
     "Constitution of India"
   ],
   "sem2": [
+    "Communicative English2",
+    "Advanced Calculus and Complex Analysis",
+    "Chemistry",
+    "Chemistry Lab",
+    "Engineering Graphics and Design",
+    "Electronic System and PCB design",
+    "Electronic System and PCB design lab",
+    "Programming for Problem Solving",
+    "Programming for Problem Solving lab",
+    "Environmental Science",
+    "General Aptitude",
+    "Biology",
+    "Constitution of India"
+  ]
+},
+{
+  "_id": {
+    "$oid": "689deebbbadbfb3a44dcc574"
+  },
+  "year": 2,
+  "sem3": [
+    "Transforms and Boundary Value Problems",
+    "Computer Organization and Architecture",
+    "Solid State Devices",
+    "Digital Logic Design",
+    "Electromagnetic Theory and Interference",
+    "Design Thinking and Methodology",
+    "Devices and Digital IC Laboratory",
+    "Professional Ethics",
+    "Verbal Reasoning",
+    "Unallocated"
+  ],
+  "sem4": [
+    "Communicative English",
+    "Advanced Calculus and Complex Analysis",
+    "Chemistry",
+    "Chemistry Lab",
+    "Engineering Graphics and Design",
+    "Electronic System and PCB design",
+    "Electronic System and PCB design lab",
+    "Programming for Problem Solving",
+    "Programming for Problem Solving lab",
+    "Environmental Science",
+    "General Aptitude",
+    "Biology",
+    "Constitution of India"
+  ]
+},
+{
+  "_id": {
+    "$oid": "689deec5badbfb3a44dcc575"
+  },
+  "year": 3,
+  "sem5": [
+    "Discrete Mathematics",
+    "Microprocessor, Microcontroller and Interfacing Techniques",
+    "VLSI Design and Technology",
+    "Machine Learning Algorithms",
+    "Mobile App Developement",
+    "VLSI Design Laboratory",
+    "Machine Learning Algorithms Lab",
+    "Community Connect",
+    "Analytical and Logical Thinking Skills",
+    "Indian Art Form",
+    "Unallocated"
+  ],
+  "sem6": [
     "Communicative English",
     "Advanced Calculus and Complex Analysis",
     "Chemistry",

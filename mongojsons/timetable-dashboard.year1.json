@@ -13,7 +13,10 @@
       "period5": "Advanced Calculus and Complex Analysis",
       "period6": "Advanced Calculus and Complex Analysis",
       "period7": "Students mentoring",
-      "period8": "unallocated"
+      "period8": "unallocated1",
+      "_id": {
+        "$oid": "688b892f2ceb27ccea444db5"
+      }
     },
     {
       "day": "Day 2",
@@ -24,7 +27,10 @@
       "period5": "Chemistry Lab",
       "period6": "Chemistry",
       "period7": "Engineering Graphics and Design",
-      "period8": "unallocated"
+      "period8": "unallocated",
+      "_id": {
+        "$oid": "688b88fb2ceb27ccea444d7a"
+      }
     },
     {
       "day": "Day 3",
@@ -35,7 +41,10 @@
       "period5": "Electronic System and PCB design",
       "period6": "Communicative English",
       "period7": "Environmental Science",
-      "period8": "Seminar"
+      "period8": "Seminar",
+      "_id": {
+        "$oid": "688b88fb2ceb27ccea444d7b"
+      }
     },
     {
       "day": "Day 4",
@@ -46,7 +55,10 @@
       "period5": "PPS/PCB Lab",
       "period6": "PPS/PCB Lab",
       "period7": "Chemistry Lab",
-      "period8": "Seminar"
+      "period8": "Seminar",
+      "_id": {
+        "$oid": "688b88fb2ceb27ccea444d7c"
+      }
     },
     {
       "day": "Day 5",
@@ -57,7 +69,10 @@
       "period5": "Communicative English",
       "period6": "Programming for Problem Solving lab",
       "period7": "Project Discussion",
-      "period8": "unallocated"
+      "period8": "unallocated",
+      "_id": {
+        "$oid": "688b88fb2ceb27ccea444d7d"
+      }
     }
   ],
   "staffs": {
@@ -74,7 +89,30 @@
     "General Aptitude": "Mr Iyappan",
     "Biology": "Dr S Vasthi Gana Rani",
     "Constitution of India": "Dr Diana"
-  }
+  },
+  "__v": 4,
+  "staffSubjectLinks": [
+    {
+      "subject": "Communicative English",
+      "staffId": {
+        "$oid": "689d73bb68d25506209aba2c"
+      },
+      "class": "A",
+      "_id": {
+        "$oid": "689debd17e844be30c03cf45"
+      }
+    },
+    {
+      "subject": "Communicative English2",
+      "staffId": {
+        "$oid": "689d73bb68d25506209aba2c"
+      },
+      "class": "A",
+      "_id": {
+        "$oid": "689df1527f0e1a237009b75b"
+      }
+    }
+  ]
 },
 {
   "_id": {
